@@ -1,0 +1,10 @@
+name: Developer Visualization
+type: module
+description: Provides a block responsible for presentation data in visualization way.
+core_version_requirement: ^9 || ^10
+package: Developer
+
+dependencies:
+  - developer:developer
+  - developer:developer_presentation
+  - webform:webform

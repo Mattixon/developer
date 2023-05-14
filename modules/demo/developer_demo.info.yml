@@ -1,0 +1,8 @@
+name: Developer Demo
+type: module
+description: Provides limited demo data for visualization.
+core_version_requirement: ^9 || ^10
+package: Developer
+
+dependencies:
+  - developer:developer

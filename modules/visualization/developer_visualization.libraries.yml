@@ -1,0 +1,8 @@
+global:
+  css:
+    theme:
+      css/developer_visualization.css: {}
+  js:
+    js/developer_visualization.js: {}
+  dependencies:
+    - core/drupal.ajax

@@ -1,0 +1,10 @@
+presentation:
+  css:
+    theme:
+      css/presentation-block.css: {}
+  js:
+    js/presentation-block.js: {}
+
+presentation-config-form-validation:
+  js:
+    js/presentation-config-form-validation.js: {}

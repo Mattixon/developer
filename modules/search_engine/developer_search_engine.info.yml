@@ -1,0 +1,9 @@
+name: Developer Search Engine
+type: module
+description: Provides a presentation tab with search engine.
+core_version_requirement: ^9 || ^10
+package: Developer
+
+dependencies:
+  - developer:developer
+  - developer:developer_presentation

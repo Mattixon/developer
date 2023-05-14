@@ -1,0 +1,32 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - developer.developer_floor.demo
+id: developer_floor.demo.default
+targetEntityType: developer_floor
+bundle: demo
+mode: default
+content:
+  main_image:
+    type: entity_reference_entity_view
+    label: hidden
+    settings:
+      view_mode: default
+      link: false
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  name:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  building_id: true
+  created: true
+  langcode: true
+  uid: true

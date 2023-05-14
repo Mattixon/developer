@@ -1,0 +1,59 @@
+<?php
+
+/**
+ * @file
+ * Handles Developer Demo installation.
+ */
+
+/**
+ * Implements hook_install().
+ *
+ * Activate creator.
+ */
+function developer_demo_install(): void {
+  $moduleHandler = \Drupal::service('module_handler');
+  $creator_service = \Drupal::service('developer_demo.create_data');
+  $creator_service->initCreator();
+
+  if ($moduleHandler->moduleExists('developer_visualization')) {
+    $coodinates_field_service = \Drupal::service('developer_visualization.coordinates_field_service');
+    $coodinates_field_service->createCoordinatesField();
+    $creator_service->setCoordinates();
+  }
+}
+
+/**
+ * Implements hook_uninstall().
+ *
+ * Remove all demo data.
+ */
+function developer_demo_uninstall(): void {
+  $entity_types = [
+    'developer_flat',
+    'developer_floor',
+    'developer_building',
+    'developer_estate',
+  ];
+
+  /* Remove all demo content */
+  foreach ($entity_types as $type) {
+    $entity_storage = \Drupal::service('entity_type.manager')->getStorage($type);
+    $entities = $entity_storage->loadByProperties(['type' => 'demo']);
+    $entity_storage->delete($entities);
+  }
+
+  /* Remove all demo media */
+  $result = \Drupal::entityQuery('media')
+    ->condition('bundle', [
+      'developer_estate',
+      'developer_building',
+      'developer_floor',
+      'developer_flat',
+    ], 'IN')
+    ->condition('name', 'demo', 'STARTS_WITH')
+    ->execute();
+
+  $storage_handler = \Drupal::entityTypeManager()->getStorage('media');
+  $media = $storage_handler->loadMultiple($result);
+  $storage_handler->delete($media);
+}

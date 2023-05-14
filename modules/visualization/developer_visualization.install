@@ -1,0 +1,32 @@
+<?php
+
+/**
+ * @file
+ * Handles Developer Visualization installation and upgrade tasks.
+ */
+
+/**
+ * Implements hook_install().
+ *
+ * Create and add coordinates field to developer entities.
+ */
+function developer_visualization_install(): void {
+  $moduleHandler = \Drupal::service('module_handler');
+  $coodinates_field_service = \Drupal::service('developer_visualization.coordinates_field_service');
+  $coodinates_field_service->createCoordinatesField();
+
+  if ($moduleHandler->moduleExists('developer_demo')) {
+    $creator_service = \Drupal::service('developer_demo.create_data');
+    $creator_service->setCoordinates();
+  }
+}
+
+/**
+ * Implements hook_uninstall().
+ *
+ * Delete coordinates field from developer entities.
+ */
+function developer_visualization_uninstall(): void {
+  $coodinates_field_service = \Drupal::service('developer_visualization.coordinates_field_service');
+  $coodinates_field_service->deleteCoordinatesField();
+}

@@ -1,0 +1,7 @@
+services:
+  plugin.manager.developer_presentation:
+    class: Drupal\developer_presentation\Manager\PresentationManager
+    parent: default_plugin_manager
+    arguments: ['@container.namespaces', '@cache.discovery', '@module_handler']
+  developer_presentation.block_builder_service:
+    class: Drupal\developer_presentation\PresentationBlockBuilderService

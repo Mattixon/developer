@@ -1,0 +1,99 @@
+{#
+/**
+ * Theme for visualization plugin content.
+ *
+ * Variables:
+ * - block_id: Block id.
+ * - flat_description: Flat description entity view.
+ * - guide: Text with information how to use current stage.
+ * - image: Stage main image.
+ * - paths: Svg related paths to image.
+ * - back_btn: Back button.
+ * - floor_legend: Floor legend with available statuses.
+ * - flats_tooltip_data: Flats tooltip data.
+ * - webform: Contact webform.
+ */
+#}
+
+
+<div 
+  class="visualization-svg-container {{ image.entity_name ~ '-stage' }}"
+  id="{{ 'visualization-svg-container--' ~ block_id }}"
+  data-front-url="{{ front_url }}"
+  data-block-id="{{ block_id }}"
+>
+
+  {# Display flat description. #}
+  {% if image.entity_name == 'flat' and image.sell_entity_name == 'flat' %}
+    <div class="flat-description">
+      {{ flat_description }}
+    </div>
+  {% endif %}
+
+  {# Display visualization guide. Don't show up on last stage. #}
+  {{ guide }}
+
+  <svg 
+    {# style="max-width: {{ image.width }}px;width: 100%;height: auto;" #}
+    viewBox="0 0 {{ image.width }} {{ image.height }}"
+    data-entity-name="{{ image.entity_name }}"
+    data-entity-id="{{ image.entity_id }}"
+    data-path-fill="{{ image.path_fill }}"
+    data-path-target-opacity="{{ image.path_target_opacity }}"
+    data-starting-entity-name="{{ image.starting_entity_name }}"
+    data-sell-entity-name="{{ image.sell_entity_name }}"
+    data-webform-id="{{ image.webform_id }}"
+    {% if image.style %} data-image-style="{{ image.style }}"> {% endif %}
+  >
+    <image width="100%" height="auto" href="{{ image.url }}"></image>
+    {% for id, path in paths %}
+      {% if image.entity_name != 'floor' %}
+        <path 
+          d="{{ path }}"
+          fill="#{{ image.path_fill }}"
+          fill-opacity="0"
+          data-subentity-id="{{ id }}"
+        />
+      {% else %}
+        <path
+          class="{{ path.status }} floor"
+          d="{{ path.coordinates }}"
+          fill="{{ path.fill }}"
+          fill-opacity="{{ image.path_target_opacity }}"
+          data-subentity-id="{{ id }}"
+        />
+      {% endif %}
+    {% endfor %}
+  </svg>
+
+  {# Display flat webform #}
+  {% if image.entity_name == 'flat' and image.sell_entity_name == 'flat' %}
+    <div class="visualization-webform">
+      {{ webform }}
+    </div>
+  {% endif %}
+
+  {# Display back button. #}
+  {% if image.entity_name != image.starting_entity_name %}
+    {{ back_btn }}
+  {% endif %}
+
+  {# Display ask for offer button. #}
+  {% if image.sell_entity_name == 'building' and image.entity_name == 'building' %}
+    {{ ask_for_offer_btn }}
+  {% endif %}
+
+  {# 
+    Display floor legend with available flat statuses and print flats
+    information for tooltip.
+  #}
+  {% if image.entity_name == 'floor' and image.sell_entity_name == 'flat' %}
+    {{ floor_legend }}
+
+    {% for id, flat in flats_tooltip_data %}
+      <div id="{{ 'floor-id-' ~ id }}" class="flat-information" style="display: none;">
+        {{ flat }}
+      </div>
+    {% endfor %}
+  {% endif %}
+</div>

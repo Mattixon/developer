@@ -1,0 +1,4 @@
+services:
+  developer_demo.create_data:
+    class: Drupal\developer_demo\CreatorService
+    arguments: ['@file.repository', '@file_system', '@entity_type.manager', '@extension.list.module']

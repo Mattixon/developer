@@ -1,0 +1,12 @@
+developer_presentation.presentation_change_tab:
+  path: '/developer-presentation/change-tab/{plugin_id}/{block_id}'
+  defaults:
+    _controller: 'Drupal\developer_presentation\Controller\AjaxChangeTab::changeTab'
+  requirements:
+    _access: 'TRUE'
+  options:
+    parameters:
+      plugin_id:
+        type: string
+      block_id:
+        type: string

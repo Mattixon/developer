@@ -1,0 +1,55 @@
+developer_visualization.visualizations_ajax_next_step:
+  path: '/developer-visualization/next/{block_id}/{entity_name}/{entity_id}/{path_fill}/{path_target_opacity}/{starting_entity_name}/{sell_entity_name}/{webform_id}/{main_image_style}'
+  defaults:
+    _controller: 'Drupal\developer_visualization\Controller\AjaxVisualizationSteps::nextStep'
+    main_image_style: NULL
+  requirements:
+    _access: 'TRUE'
+  options:
+    parameters:
+      block_id:
+        type: string
+      entity_name:
+        type: string
+      entity_id:
+        type: string
+      path_fill:
+        type: string
+      path_target_opacity:
+        type: string
+      starting_entity_name:
+        type: string
+      sell_entity_name:
+        type: string
+      webform_id:
+        type: string
+      main_image_style:
+        type: string
+
+developer_visualization.visualizations_ajax_prev_step:
+  path: '/developer-visualization/prev/{block_id}/{entity_name}/{entity_id}/{path_fill}/{path_target_opacity}/{starting_entity_name}/{sell_entity_name}/{webform_id}/{main_image_style}'
+  defaults:
+    _controller: 'Drupal\developer_visualization\Controller\AjaxVisualizationSteps::prevStep'
+    main_image_style: NULL
+  requirements:
+    _access: 'TRUE'
+  options:
+    parameters:
+      block_id:
+        type: string
+      entity_name:
+        type: string
+      entity_id:
+        type: string
+      path_fill:
+        type: string
+      path_target_opacity:
+        type: string
+      starting_entity_name:
+        type: string
+      sell_entity_name:
+        type: string
+      webform_id:
+        type: string
+      main_image_style:
+        type: string

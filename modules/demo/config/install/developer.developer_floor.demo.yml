@@ -1,0 +1,10 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - developer_demo
+id: demo
+label: Demo
+description: 'Used in Developer Demo module.'
+new_revision: true

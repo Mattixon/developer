@@ -1,0 +1,76 @@
+.developer-presentation {
+  margin: 30px 0 50px 0;
+}
+
+.developer-presentation .tabs {
+  margin-bottom: 50px;
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  border-bottom: 2px solid black;
+}
+
+.developer-presentation .tabs button {
+  padding: .3em 1em;
+  font-weight: 600;
+}
+
+.developer-presentation .content {
+  margin-top: 30px;
+}
+
+.developer-tab-btn {
+  cursor: pointer;
+  background: #fff;
+  padding: .5em 1.6em;
+  border: 2px solid black;
+  border-bottom: none;
+  font-weight: 600;
+  font-size: 22px;
+  border-radius: 8px 8px 0 0;
+  color: black;
+  transition: .3s;
+}
+
+.developer-tab-btn.active-tab {
+  background: black;
+  color: white;
+}
+
+.developer-tab-btn:not(.active-tab):hover {
+  background: black;
+  border: 2px solid white;
+  border-bottom: none;
+  color: white ;
+}
+
+.developer-tab-btn.use-ajax + .ajax-progress {
+  display: none;
+}
+
+@media (max-width:1000px) {
+  .developer-presentation .tabs {
+    margin-bottom: 30px;
+    gap: 20px;
+  }
+
+  .developer-tab-btn {
+    font-size: 18px;
+    padding: .3em 1.2em;
+  }
+}
+
+@media (max-width:500px) {
+  .developer-presentation .tabs {
+    margin-bottom: 15px;
+    gap: 10px;
+  }
+
+  .developer-presentation .content {
+    margin-top: 15px;
+  }
+
+  .developer-tab-btn {
+    font-size: 14px;
+  }
+}

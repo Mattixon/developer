@@ -1,0 +1,23 @@
+<?php
+
+/**
+ * @file
+ * Contain all hook functions for Developer Presentation module.
+ */
+
+/**
+ * Implements hook_theme().
+ *
+ * Add module themes.
+ */
+function developer_presentation_theme(): array {
+  return [
+    'presentation_block' => [
+      'variables' => [
+        'tabs' => NULL,
+        'content' => NULL,
+        'block_id' => NULL,
+      ],
+    ],
+  ];
+}

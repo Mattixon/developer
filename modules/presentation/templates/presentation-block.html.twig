@@ -1,0 +1,15 @@
+<div class="developer-presentation" data-block-id="{{ block_id }}">
+
+  {% if tabs %}
+    <div class="tabs">
+      {% for tab in tabs %}
+        {{ tab }}
+      {% endfor %}
+    </div>
+  {% endif %}
+
+  <div id="{{ 'developer-presentation-content--' ~ block_id }}" class="content">
+    {{ content }}
+  </div>
+
+</div>
