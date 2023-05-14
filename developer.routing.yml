@@ -1,0 +1,109 @@
+# Global routes.
+developer.admin:
+  path: '/admin/developer'
+  defaults:
+    _controller: '\Drupal\system\Controller\SystemController::overview'
+    link_id: 'developer.admin'
+    _title: 'Developer'
+  requirements:
+    _permission: 'access developer administration pages'
+
+developer.content:
+  path: '/admin/developer/content'
+  defaults:
+    _controller: '\Drupal\system\Controller\SystemController::systemAdminMenuBlockPage'
+    _title: 'Content'
+  requirements:
+    _permission: 'access developer administration pages'
+
+developer.configuration:
+  path: '/admin/developer/config'
+  defaults:
+    _controller: '\Drupal\system\Controller\SystemController::systemAdminMenuBlockPage'
+    _title: 'Configuration'
+  requirements:
+    _permission: 'access developer administration pages'
+
+developer.configuration.entities:
+  path: '/admin/developer/config/entities'
+  defaults:
+    _controller: '\Drupal\system\Controller\SystemController::systemAdminMenuBlockPage'
+    _title: 'Entities configuration'
+  requirements:
+    _permission: 'access developer administration pages'
+
+developer.purge:
+  path: '/admin/developer/config/purge'
+  defaults:
+    _form: '\Drupal\developer\Form\PurgeDataForm'
+    _title: 'Purge data'
+  requirements:
+    _permission: 'administer module'
+
+# Autocomplete callback.
+developer.entity_autocomplete:
+  path: '/developer_entity_reference_autocomplete/{target_type}/{selection_handler}/{selection_settings_key}'
+  defaults:
+    _controller: '\Drupal\developer\Controller\DeveloperEntityAutocompleteController::handleAutocomplete'
+  requirements:
+    _access: 'TRUE'
+
+# Estate entity routes.
+entity.developer_estate.revision_delete_form:
+  path: "/admin/developer/content/estate/{developer_estate}/revision/{developer_estate_revision}/delete"
+  defaults:
+    _form: '\Drupal\developer\Form\Entity\EntityRevisionDeleteForm'
+    _title: 'Delete earlier revision'
+  requirements:
+    _permission: 'administer estate entity'
+  options:
+    parameters:
+      developer_estate:
+        type: entity:developer_estate
+      developer_estate_revision:
+        type: entity_revision:developer_estate
+
+# Building entity routes.
+entity.developer_building.revision_delete_form:
+  path: "/admin/developer/content/building/{developer_building}/revision/{developer_building_revision}/delete"
+  defaults:
+    _form: '\Drupal\developer\Form\Entity\EntityRevisionDeleteForm'
+    _title: 'Delete earlier revision'
+  requirements:
+    _permission: 'administer building entity'
+  options:
+    parameters:
+      developer_building:
+        type: entity:developer_building
+      developer_building_revision:
+        type: entity_revision:developer_building
+
+# Floor entity routes.
+entity.developer_floor.revision_delete_form:
+  path: "/admin/developer/content/floor/{developer_floor}/revision/{developer_floor_revision}/delete"
+  defaults:
+    _form: '\Drupal\developer\Form\Entity\EntityRevisionDeleteForm'
+    _title: 'Delete earlier revision'
+  requirements:
+    _permission: 'administer floor entity'
+  options:
+    parameters:
+      developer_floor:
+        type: entity:developer_floor
+      developer_floor_revision:
+        type: entity_revision:developer_floor
+
+# Flat entity routes.
+entity.developer_flat.revision_delete_form:
+  path: "/admin/developer/content/flat/{developer_flat}/revision/{developer_flat_revision}/delete"
+  defaults:
+    _form: '\Drupal\developer\Form\Entity\EntityRevisionDeleteForm'
+    _title: 'Delete earlier revision'
+  requirements:
+    _permission: 'administer flat entity'
+  options:
+    parameters:
+      developer_flat:
+        type: entity:developer_flat
+      developer_flat_revision:
+        type: entity_revision:developer_flat

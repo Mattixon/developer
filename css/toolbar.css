@@ -1,0 +1,8 @@
+/**
+ * @file
+ * Customize toolbar by adding icon.
+ */
+#toolbar-administration .toolbar-icon-developer-admin::before {
+    background-image: url(../icons/house.svg);
+}
+

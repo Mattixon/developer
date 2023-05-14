@@ -1,0 +1,14 @@
+toolbar:
+  css:
+    theme:
+      css/toolbar.css: {}
+
+toolbar-gin:
+  css:
+    theme:
+      css/toolbar-gin.css: {}
+
+entity-form:
+  css:
+    theme:
+      css/entity-form.css: {}

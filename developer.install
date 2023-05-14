@@ -1,0 +1,38 @@
+<?php
+
+/**
+ * @file
+ * Handles Developer installation and upgrade tasks.
+ */
+
+/**
+ * Implements hook_install().
+ *
+ * Copy translations to translations folder.
+ */
+function developer_install(): void {
+  $file_system = \Drupal::service('file_system');
+  $module_path = \Drupal::service('extension.list.module')->getPath('developer');
+  $file_path = $module_path . '/translations/developer.pl.po';
+  $file_system->copy($file_path, 'translations://', 1);
+}
+
+/**
+ * Implements hook_uninstall().
+ *
+ * Delete all media types related to module.
+ */
+function developer_uninstall(): void {
+  $result = \Drupal::entityQuery('media')
+    ->condition('bundle', [
+      'developer_estate',
+      'developer_building',
+      'developer_floor',
+      'developer_flat',
+    ], 'IN')
+    ->execute();
+
+  $storage_handler = \Drupal::entityTypeManager()->getStorage('media');
+  $media = $storage_handler->loadMultiple($result);
+  $storage_handler->delete($media);
+}

@@ -1,0 +1,95 @@
+# Global links.
+developer.admin:
+  title: 'Developer'
+  description: 'Manage Developer module here.'
+  parent: 'system.admin'
+  route_name: 'developer.admin'
+
+developer.content:
+  title: 'Content'
+  title_context: 'Developer menu'
+  description: 'Content of Developer module entities.'
+  parent: 'developer.admin'
+  route_name: 'developer.content'
+  weight: 1
+
+developer.configuration:
+  title: 'Configuration'
+  description: 'Configure Developer module here.'
+  parent: 'developer.admin'
+  route_name: 'developer.configuration'
+  weight: 2
+
+developer.configuration.entity:
+  title: 'Entities configuration'
+  description: 'Configure Developer module entities settings and structure.'
+  parent: 'developer.configuration'
+  route_name: 'developer.configuration.entities'
+  weight: 1
+
+developer.configuration.purge:
+  title: 'Purge data'
+  description: 'Purge all Developer module data.'
+  parent: 'developer.configuration'
+  route_name: 'developer.purge'
+  weight: 2
+
+# Estate entity links.
+entity.developer_estate.collection:
+  title: 'Estates'
+  description: 'Manage estate collection.'
+  parent: 'developer.content'
+  route_name: 'entity.developer_estate.collection'
+  weight: 1
+
+entity.developer_estate_type.collection:
+  title: 'Estate types'
+  description: 'Allows to manage estate entity types.'
+  parent: 'developer.configuration.entity'
+  route_name: 'entity.developer_estate_type.collection'
+  weight: 1
+
+# Building entity links.
+entity.developer_building.collection:
+  title: 'Buildings'
+  description: 'Manage building collection.'
+  parent: 'developer.content'
+  route_name: 'entity.developer_building.collection'
+  weight: 2
+
+entity.developer_building_type.collection:
+  title: 'Building types'
+  description: 'Allows to manage building entity types.'
+  parent: 'developer.configuration.entity'
+  route_name: 'entity.developer_building_type.collection'
+  weight: 2
+
+# Floor entity links.
+entity.developer_floor.collection:
+  title: 'Floors'
+  description: 'Manage floor collection.'
+  parent: 'developer.content'
+  route_name: 'entity.developer_floor.collection'
+  weight: 3
+
+entity.developer_floor_type.collection:
+  title: 'Floor types'
+  description: 'Allows to manage floor entity types.'
+  parent: 'developer.configuration.entity'
+  route_name: 'entity.developer_floor_type.collection'
+  weight: 3
+
+# Flat entity links.
+entity.developer_flat.collection:
+  title: 'Flats'
+  description: 'Manage flats collection.'
+  parent: 'developer.content'
+  route_name: 'entity.developer_flat.collection'
+  weight: 4
+
+entity.developer_flat_type.collection:
+  title: 'Flat types'
+  description: 'Allows to manage flats entity types.'
+  parent: 'developer.configuration.entity'
+  route_name: 'entity.developer_flat_type.collection'
+  weight: 4

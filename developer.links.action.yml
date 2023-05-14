@@ -1,0 +1,51 @@
+# Estate entity action links.
+developer.developer_estate.add:
+  route_name: 'entity.developer_estate.add_page'
+  title: 'Add estate'
+  appears_on:
+    - entity.developer_estate.collection
+
+developer.developer_estate_type.add:
+  route_name: 'entity.developer_estate_type.add_form'
+  title: 'Add estate type'
+  appears_on:
+    - entity.developer_estate_type.collection
+
+# Building entity action links.
+developer.developer_building.add:
+  route_name: 'entity.developer_building.add_page'
+  title: 'Add building'
+  appears_on:
+    - entity.developer_building.collection
+
+developer.developer_building_type.add:
+  route_name: 'entity.developer_building_type.add_form'
+  title: 'Add building type'
+  appears_on:
+    - entity.developer_building_type.collection
+
+# Floor entity action links.
+developer.developer_floor.add:
+  route_name: 'entity.developer_floor.add_page'
+  title: 'Add floor'
+  appears_on:
+    - entity.developer_floor.collection
+
+developer.developer_floor_type.add:
+  route_name: 'entity.developer_floor_type.add_form'
+  title: 'Add floor type'
+  appears_on:
+    - entity.developer_floor_type.collection
+
+# Flat entity action links.
+developer.developer_flat.add:
+  route_name: 'entity.developer_flat.add_page'
+  title: 'Add flat'
+  appears_on:
+    - entity.developer_flat.collection
+
+developer.developer_flat_type.add:
+  route_name: 'entity.developer_flat_type.add_form'
+  title: 'Add flat type'
+  appears_on:
+    - entity.developer_flat_type.collection

@@ -1,0 +1,86 @@
+<?php
+
+/**
+ * @file
+ * Contain all hook functions for Developer module.
+ */
+
+use Drupal\Core\Url;
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\views\Entity\View;
+use Drupal\views\Views;
+
+/**
+ * Implements hook_theme().
+ *
+ * Add module themes.
+ */
+function developer_theme(): array {
+  return [
+    'entity_form' => [
+      'render element' => 'form',
+    ],
+  ];
+}
+
+/**
+ * Implements hook_entity_operation().
+ *
+ * Add module related entities operations.
+ */
+function developer_entity_operation(EntityInterface $entity): array {
+  $operations = [];
+
+  if (\Drupal::moduleHandler()->moduleExists('views')) {
+    $entity_type_id = $entity->getEntityType()->id();
+
+    if (
+      str_contains($entity_type_id, 'developer_')
+      && !str_contains($entity_type_id, '_type')
+      && $entity_type_id !== 'developer_flat'
+    ) {
+      $entities_map = [
+        'developer_estate' => 'developer_buildings',
+        'developer_building' => 'developer_floors',
+        'developer_floor' => 'developer_flats',
+      ];
+
+      $enabled_views = Views::getEnabledViews();
+      $require_view = array_key_exists($entities_map[$entity_type_id], $enabled_views) ? $enabled_views[$entities_map[$entity_type_id]] : NULL;
+
+      if ($require_view instanceof View) {
+        $current_view_related_display = $require_view->getDisplay('related');
+
+        if (!empty($current_view_related_display)) {
+          $route_name = 'view.' . $entities_map[$entity_type_id] . '.related';
+
+          $operations['list'] = [
+            'title' => t('List'),
+            'url' => Url::fromRoute($route_name, ['arg_0' => $entity->id()]),
+            'weight' => 10,
+          ];
+        }
+      }
+    }
+  }
+
+  return $operations;
+}
+
+/**
+ * Implements hook_toolbar_alter().
+ *
+ * Add library with icon to toolbar.
+ */
+function developer_toolbar_alter(array &$items): void {
+  $admin_theme = \Drupal::config('system.theme')->get('admin');
+  $attached_library = '';
+
+  match ($admin_theme) {
+    'claro' => $attached_library = 'developer/toolbar',
+    'gin' => $attached_library = 'developer/toolbar-gin',
+    default => $attached_library = 'developer/toolbar',
+  };
+
+  $items['administration']['#attached']['library'][] = $attached_library;
+}

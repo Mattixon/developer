@@ -1,0 +1,9 @@
+/**
+ * @file
+ * Customize toolbar by adding icon.
+ */
+#toolbar-administration .toolbar-icon-developer-admin::before {
+    -webkit-mask-image: url(../icons/house_gin.svg);
+    mask-image: url(../icons/house_gin.svg);
+}
+

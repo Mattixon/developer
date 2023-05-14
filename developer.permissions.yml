@@ -1,0 +1,59 @@
+# Global permissions.
+administer module:
+  title: 'Administer module'
+  restrict access: TRUE
+
+access developer administration pages:
+  title: 'Access developer administration pages'
+
+# Estate entity permissions.
+view estate entity:
+  title: 'View Estate entity'
+add estate entity:
+  title: 'Add Estate entity'
+edit estate entity:
+  title: 'Edit Estate Entity'
+delete estate entity:
+  title: 'Delete Estate entity'
+administer estate entity:
+  title: 'Administer Estate entity'
+  restrict access: TRUE
+
+# Building entity permissions.
+view building entity:
+  title: 'View Building entity'
+add building entity:
+  title: 'Add Building entity'
+edit building entity:
+  title: 'Edit Building Entity'
+delete building entity:
+  title: 'Delete Building entity'
+administer building entity:
+  title: 'Administer Building entity'
+  restrict access: TRUE
+
+# Floor entity permissions.
+view floor entity:
+  title: 'View Floor entity'
+add floor entity:
+  title: 'Add Floor entity'
+edit floor entity:
+  title: 'Edit Floor Entity'
+delete floor entity:
+  title: 'Delete Floor entity'
+administer floor entity:
+  title: 'Administer Floor entity'
+  restrict access: TRUE
+
+# Flat entity permissions.
+view flat entity:
+  title: 'View Flat entity'
+add flat entity:
+  title: 'Add Flat entity'
+edit flat entity:
+  title: 'Edit Flat Entity'
+delete flat entity:
+  title: 'Delete Flat entity'
+administer flat entity:
+  title: 'Administer Flat entity'
+  restrict access: TRUE

@@ -1,0 +1,8 @@
+services:
+  developer.entity_service:
+    class: Drupal\developer\Service\EntityService
+    arguments: ['@entity_type.manager', '@current_route_match']
+  
+  developer.developer_data_service:
+    class: Drupal\developer\Service\DeveloperDataService
+    arguments: ['@entity_type.manager']

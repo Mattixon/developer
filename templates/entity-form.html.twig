@@ -1,0 +1,21 @@
+{#
+/**
+ * @file
+ * Template for the entity add/edit form.
+ *
+ * Available variables:
+ * - form: The form.
+ */
+#}
+<div class="layout-entity-form clearfix">
+  <div class="layout-region layout-region-entity-main">
+    {{ form|without('advanced', 'footer', 'actions') }}
+  </div>
+  <div class="layout-region layout-region-entity-secondary">
+    {{ form.advanced }}
+  </div>
+  <div class="layout-region layout-region-entity-footer">
+    {{ form.footer }}
+    {{ form.actions }}
+  </div>
+</div>

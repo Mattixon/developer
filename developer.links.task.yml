@@ -1,0 +1,62 @@
+# Entities edit tab.
+developer.developer_estate.edit:
+  route_name: entity.developer_estate_type.edit_form
+  title: Edit
+  base_route: entity.developer_estate_type.edit_form
+
+developer.developer_building.edit:
+  route_name: entity.developer_building_type.edit_form
+  title: Edit
+  base_route: entity.developer_building_type.edit_form
+
+developer.developer_floor.edit:
+  route_name: entity.developer_floor_type.edit_form
+  title: Edit
+  base_route: entity.developer_floor_type.edit_form
+
+developer.developer_flat.edit:
+  route_name: entity.developer_flat_type.edit_form
+  title: Edit
+  base_route: entity.developer_flat_type.edit_form
+
+# Navigation between types.
+developer.entity_types.estate_types:
+  route_name: entity.developer_estate_type.collection
+  title: Estate types
+  base_route: entity.developer_estate_type.collection
+
+developer.entity_types.building_types:
+  route_name: entity.developer_building_type.collection
+  title: Building types
+  base_route: entity.developer_estate_type.collection
+
+developer.entity_types.floor_types:
+  route_name: entity.developer_floor_type.collection
+  title: Floor types
+  base_route: entity.developer_estate_type.collection
+
+developer.entity_types.flat_types:
+  route_name: entity.developer_flat_type.collection
+  title: Flat types
+  base_route: entity.developer_estate_type.collection
+
+# Navigation between content.
+developer.entity_content.estate:
+  route_name: entity.developer_estate.collection
+  title: Estates
+  base_route: entity.developer_estate.collection
+
+developer.entity_content.building:
+  route_name: entity.developer_building.collection
+  title: Buildings
+  base_route: entity.developer_estate.collection
+
+developer.entity_content.floor:
+  route_name: entity.developer_floor.collection
+  title: Floors
+  base_route: entity.developer_estate.collection
+
+developer.entity_content.flat:
+  route_name: entity.developer_flat.collection
+  title: Flats
+  base_route: entity.developer_estate.collection

@@ -1,0 +1,795 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"POT-Creation-Date: 2023-03-19 19:04+0100\n"
+"PO-Revision-Date: 2023-03-19 19:04+0100\n"
+"Last-Translator: NAME <EMAIL@ADDRESS>\n"
+"Language-Team: Polish <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+
+msgid "List"
+msgstr "Lista"
+
+msgid "Developer"
+msgstr "Deweloper"
+
+msgid "Provides additional functionalities for developers."
+msgstr "Zapewnia dodatkowe funkcjonalności dla deweloperów."
+
+msgid "Add estate"
+msgstr "Dodaj osiedle"
+
+msgid "Add estate type"
+msgstr "Dodaj typ osiedla"
+
+msgid "Add building"
+msgstr "Dodaj budynek"
+
+msgid "Add building type"
+msgstr "Dodaj typ budynku"
+
+msgid "Add floor"
+msgstr "Dodaj piętro"
+
+msgid "Add floor type"
+msgstr "Dodaj typ piętra"
+
+msgid "Add flat"
+msgstr "Dodaj mieszkanie"
+
+msgid "Add flat type"
+msgstr "Dodaj typ mieszkania"
+
+msgctxt "Developer menu"
+msgid "Content"
+msgstr "Zawartość"
+
+msgid "Content"
+msgstr "Zawartość"
+
+msgid "Configuration"
+msgstr "Konfiguracja"
+
+msgid "Entities configuration"
+msgstr "Konfiguracja encji"
+
+msgid "Purge data"
+msgstr "Wyczyść dane"
+
+msgid "Estates"
+msgstr "Osiedla"
+
+msgid "Estate types"
+msgstr "Typy osiedli"
+
+msgid "Buildings"
+msgstr "Budynki"
+
+msgid "Building types"
+msgstr "Typy budynków"
+
+msgid "Floors"
+msgstr "Piętra"
+
+msgid "Floor types"
+msgstr "Typy pięter"
+
+msgid "Flats"
+msgstr "Mieszkania"
+
+msgid "Flat types"
+msgstr "Typy mieszkań"
+
+msgid "Manage Developer module here."
+msgstr "Zarządzaj modułem Deweloper tutaj."
+
+msgid "Content of Developer module entities."
+msgstr "Zawartość encji modułu Deweloper."
+
+msgid "Configure Developer module here."
+msgstr "Konfiguruj moduł Deweloper tutaj."
+
+msgid "Configure Developer module entities settings and structure."
+msgstr "Konfiguruj ustawienia i strukture encji modułu Deweloper."
+
+msgid "Purge all Developer module data."
+msgstr "Wyczyść wszystkie dane modułu Deweloper."
+
+msgid "Manage estate collection."
+msgstr "Zarządzaj kolekcją osiedli."
+
+msgid "Allows to manage estate entity types."
+msgstr "Pozwala zarządzać typami encji."
+
+msgid "Manage building collection."
+msgstr "Zarządzaj kolekcją budynków."
+
+msgid "Allows to manage building entity types."
+msgstr "Pozwala zarządzać typami encji budynku."
+
+msgid "Manage floor collection."
+msgstr "Zarządzaj kolekcją pięter."
+
+msgid "Allows to manage floor entity types."
+msgstr "Pozwala zarządzać typami encji piętra."
+
+msgid "Manage flats collection."
+msgstr "Zarządzaj kolekcją mieszkań."
+
+msgid "Allows to manage flats entity types."
+msgstr "Pozwala zarządzać typami encji mieszkania."
+
+msgid "Edit"
+msgstr "Edytuj"
+
+msgid "Administer module"
+msgstr "Zarządzaj modułem"
+
+msgid "Access developer administration pages"
+msgstr "Dostęp do stron zarządzania modułu Deweloper"
+
+msgid "View Estate entity"
+msgstr "Wyświetl encję Osiedle"
+
+msgid "Add Estate entity"
+msgstr "Dodaj encję Osiedle"
+
+msgid "Edit Estate Entity"
+msgstr "Edytuj encję Osiedle"
+
+msgid "Delete Estate entity"
+msgstr "Usuń encję Osiedle"
+
+msgid "Administer Estate entity"
+msgstr "Zarządzaj encją Osiedle"
+
+msgid "View Building entity"
+msgstr "Wyświetl encję Budynek"
+
+msgid "Add Building entity"
+msgstr "Dodaj encję Budynek"
+
+msgid "Edit Building Entity"
+msgstr "Edytuj encję Budynek"
+
+msgid "Delete Building entity"
+msgstr "Usuń encję Budynek"
+
+msgid "Administer Building entity"
+msgstr "Zarządzaj encją Budynek
+
+msgid "View Floor entity"
+msgstr "Wyświetl encję Piętro"
+
+msgid "Add Floor entity"
+msgstr "Dodaj encję Piętro"
+
+msgid "Edit Floor Entity"
+msgstr "Edytuj encję Piętro"
+
+msgid "Delete Floor entity"
+msgstr "Usuń encję Piętro"
+
+msgid "Administer Floor entity"
+msgstr "Zarządzaj encją Piętro"
+
+msgid "View Flat entity"
+msgstr "Wyświetl encję Mieszkanie"
+
+msgid "Add Flat entity"
+msgstr "Dodaj encję Mieszkanie"
+
+msgid "Edit Flat Entity"
+msgstr "Edytuj encję Mieszkanie"
+
+msgid "Delete Flat entity"
+msgstr "Usuń encję Mieszkanie"
+
+msgid "Administer Flat entity"
+msgstr "Zarządzaj encją Mieszkanie"
+
+msgid "Delete earlier revision"
+msgstr "Usuń poprzednią wersję"
+
+msgid "Estate type"
+msgstr "Typ osiedla"
+
+msgid "ID"
+msgstr "ID"
+
+msgid "Name"
+msgstr "Nazwa"
+
+msgid "Description"
+msgstr "Opis"
+
+msgid "Whether a new revision should be created by default"
+msgstr "Czy nowa wersja powinna być tworzona domyślnie"
+
+msgid "Building type"
+msgstr "Typ budynku"
+
+msgid "Floor type"
+msgstr "Typ piętra"
+
+msgid "Flat type"
+msgstr "Typ mieszkania"
+
+msgctxt "autocomplete"
+msgid "Name@suffix"
+msgstr "Nazwa@suffix"
+
+msgid "Related to@suffix"
+msgstr "Powiązanie z@suffix"
+
+msgid "Status"
+msgstr "Status"
+
+msgid "Floor"
+msgstr "Piętro"
+
+msgid "Building"
+msgstr "Budynek"
+
+msgid "Estate"
+msgstr "Osiedle"
+
+msgid "Type"
+msgstr "Typ"
+
+msgid "Author"
+msgstr "Autor"
+
+msgid "Publication"
+msgstr "Publikacja"
+
+msgid "Updated"
+msgstr "Zaktualizowano"
+
+msgid "Language"
+msgstr "Język"
+
+msgid "published"
+msgstr "opublikowany"
+
+msgid "not published"
+msgstr "nieopublikowany"
+
+msgid "The Name of the associated user."
+msgstr "Nazwa powiązanego użytkownika."
+
+msgid "Created"
+msgstr "Utworzono"
+
+msgid "The time when the building was created."
+msgstr "Czas kiedy budynek został stworzony."
+
+msgid "Changed"
+msgstr "Zmieniono"
+
+msgid "The time when the building was last edited."
+msgstr "Czas kiedy budynek został ostatnio edytowany."
+
+msgid "URL alias"
+msgstr "Alias URL"
+
+msgid "Published"
+msgstr "Opublikowany"
+
+msgid "The name of the Building entity."
+msgstr "Nazwa encji Budynku."
+
+msgid "Main image"
+msgstr "Główny obraz"
+
+msgid "Main building image where all related floors will be shown."
+msgstr "Główny obraz budynku gdzie zostaną pokazane wszystkie powiązane piętra."
+
+msgid "The name of the associated estate."
+msgstr "Nazwa powiązanego osiedla."
+
+msgid "Coordinates"
+msgstr "Koordynaty"
+
+msgid "Svg polygon points of this building to show on the associated estate."
+msgstr "Punkty polygon'u svg tego budynku do wyświetlenia na powiązanym osiedlu."
+
+msgid "building"
+msgstr "budynek"
+
+msgid "buildings"
+msgstr "budynki"
+
+msgid "building type"
+msgstr "typ budynku"
+
+msgid "building types"
+msgstr "typy budynków"
+
+msgid "The time when the estate was created."
+msgstr "Czas kiedy osiedle zostało stworzone."
+
+msgid "The time when the estate was last edited."
+msgstr "Czas kiedy osiedle zostało ostatnio edytowane."
+
+msgid "The name of the Estate entity."
+msgstr "Nazwa encji Osiedla."
+
+msgid "Main estate image for overview."
+msgstr "Główny obraz osiedla do przeglądu."
+
+msgid "estate"
+msgstr "osiedle"
+
+msgid "estates"
+msgstr "osiedla"
+
+msgid "estate type"
+msgstr "typ osiedla"
+
+msgid "estate types"
+msgstr "typy osiedli"
+
+msgid "The time when the flat was created."
+msgstr "Czas kiedy mieszkanie zostało stworzone."
+
+msgid "The time when the flat was last edited."
+msgstr "Czas kiedy mieszkanie zostało ostatnio edytowane."
+
+msgid "The name of the Flat entity."
+msgstr "Nazwa encji Mieszkania."
+
+msgid "Main flat image for better perspective."
+msgstr "Główny obraz mieszkania dla lepszej perspektywy."
+
+msgid "The name of the associated floor."
+msgstr "Nazwa powiązanego piętra."
+
+msgid "Svg polygon points of this flat to show on the associated floor."
+msgstr "Punkty polygon'u svg tego mieszkania do wyświetlenia na powiązanym piętrze."
+
+msgid "Available"
+msgstr "Dostępne"
+
+msgid "Reserved"
+msgstr "Zarezerwowane"
+
+msgid "Sold"
+msgstr "Sprzedane"
+
+msgid "Pre-reserved"
+msgstr "Wstępnie zarezerwowane"
+
+msgid "Status of the flat."
+msgstr "Status mieszkania."
+
+msgid "Flat"
+msgstr "Mieszkanie"
+
+msgid "flat"
+msgstr "mieszkanie"
+
+msgid "flats"
+msgstr "mieszkania"
+
+msgid "flat type"
+msgstr "typ mieszkania"
+
+msgid "flat types"
+msgstr "typy mieszkań"
+
+msgid "The time when the floor was created."
+msgstr "Czas kiedy piętro zostało stworzone."
+
+msgid "The time when the floor was last edited."
+msgstr "Czas kiedy piętro zostało ostatnio edytowane."
+
+msgid "The name of the Floor entity."
+msgstr "Nazwa encji Piętra."
+
+msgid "Main floor image where all related flats will be shown."
+msgstr "Główny obraz piętra gdzie zostaną pokazane wszystkie powiązane mieszkania."
+
+msgid "The name of the associated building."
+msgstr "Nazwa powiązanego budynku."
+
+msgid "Svg polygon points of this floor to show on the associated building."
+msgstr "Punkty polygon'u svg tego piętra do wyświetlenia na powiązanym budynku."
+
+msgid "Final"
+msgstr "Finalne"
+
+msgid "Determines that the floor is final and no flats can be added to it."
+msgstr "Decyduje o tym czy piętro jest finalne i żadne mieszkanie nie może zostać do niego dodane."
+
+msgid "floor"
+msgstr "piętro"
+
+msgid "floors"
+msgstr "piętra"
+
+msgid "floor type"
+msgstr "typ piętra"
+
+msgid "floor types"
+msgstr "typy pięter"
+
+msgid "Are you sure you want purge all module's data?"
+msgstr "Czy jesteś pewień że chcesz usunąć wszystkie dane modułu?"
+
+msgid "Purge all entities and related media in preparation for uninstalling the <i>Developer</i> module. <strong>Remember! This action cannot be undone.</strong>"
+msgstr "Usuń wszystkie encje oraz powiązane media celem przygotowania do odinstalowania modułu <i>Deweloper</i>. <strong>Pamiętaj! Tej akcji nie da się cofnąć.</strong>"
+
+msgid "All module's data has been purged. You're now free to uninstall it."
+msgstr "Wszystkie dane modułu zostały usunięte. Możesz teraz go teraz swobodnie usunąć."
+
+msgid "%type entity is used by @count %related. You can not remove this %type entity until you have removed all of the %related content."
+msgstr "Encja %type jest używana przez @count %related. Nie możesz usunąć encji %type zanim nie usuniesz wszystkich %related."
+
+msgid "At least one selected %type entity is used. You need to delete related content first."
+msgstr "Przynajmniej jedna Encja %type jest w użyciu. Najpierw musisz usunąć powiązaną zawartość."
+
+msgid "Not saved yet"
+msgstr "Jeszcze nie zapisano"
+
+msgid "Last saved"
+msgstr "Ostatnio zapisano"
+
+msgid "Authoring information"
+msgstr "Autor i data"
+
+msgid "The @entity %feed has been updated."
+msgstr "Encja %feed została zaktualizowana."
+
+msgid "The @entity %feed has been added."
+msgstr "Encja %feed została dodana."
+
+msgid "Are you sure you want to delete the revision from %revision-date?"
+msgstr "Czy na pewno usunąć wersję z dnia %revision-date?"
+
+msgid "Delete"
+msgstr "Usuń"
+
+msgid "Revision from %revision-date %title has been deleted."
+msgstr "Wersja z %revision-date %title została usunięta."
+
+msgid "%type entity type is used by @count %related. You can not remove this %type entity type until you have removed all of the %related content."
+msgstr "Typ encji %type jest używany przez @count %related. Nie możesz usunąć %type typu encji dopóki nie usuniesz całej %related zawaratości."
+
+msgid "Are you sure you want to delete %name?"
+msgstr "Czy na pewno chcesz usunąć %name?"
+
+msgid "Entity type %label has been deleted."
+msgstr "Typ encji %label został usunięty."
+
+msgid "This text will be displayed on the <em>Add %label</em> page."
+msgstr "Ten tekst zostanie wyświetlony na stronie <em>Dodaj %label</em>."
+
+msgid "Create new revision"
+msgstr "Dodaj nową wersję"
+
+msgid "The %label %type type created."
+msgstr "%label %type został stworzony."
+
+msgid "The %label %type type updated."
+msgstr "%label %type został zaktualizowany."
+
+msgid "Developer autocomplete"
+msgstr "Autouzupełnianie - Deweloper"
+
+msgid "An autocomplete text field for Developer module entities."
+msgstr "Autouzupełniane pole tekstowe dla encji modułu Deweloper."
+
+msgid "Default"
+msgstr "Domyślny"
+
+msgid "This is default building type."
+msgstr "To jest domyślny typ budynku."
+
+msgid "This is default estate type."
+msgstr "To jest domyślny typ osiedla."
+
+msgid "This is default flat type."
+msgstr "To jest domyślny typ mieszkania."
+
+msgid "This is default floor type."
+msgstr "To jest domyślny typ piętra."
+
+msgid "Developer building"
+msgstr "Deweloper - budynek"
+
+msgid "Used in the Developer module to define the appearance of the building."
+msgstr "Używany w module Deweloper do określenia wyglądu budynku."
+
+msgid "Developer estate"
+msgstr "Deweloper - osiedle"
+
+msgid "Used in the Developer module to define the appearance of the estate."
+msgstr "Używany w module Deweloper do określenia wyglądu osiedla."
+
+msgid "Developer flat"
+msgstr "Deweloper - mieszkanie"
+
+msgid "Used in the Developer module to define the appearance of the flat."
+msgstr "Używany w module Deweloper do określenia wyglądu mieszkania."
+
+msgid "Developer floor"
+msgstr "Deweloper - piętro"
+
+msgid "Used in the Developer module to define the appearance of the floor."
+msgstr "Używany w module Deweloper do określenia wyglądu piętra."
+
+msgid "Large (480×480)"
+msgstr "Duży (480×480)"
+
+msgid "Medium (220×220)"
+msgstr "Średni (220×220)"
+
+msgid "Small (100×100)"
+msgstr "Mały (100×100)"
+
+msgid "Search and management of buildings."
+msgstr "Wyszukaj i zarządzaj budynkami."
+
+msgid "Action"
+msgstr "Akcja"
+
+msgid ", "
+msgstr ", "
+
+msgid "Unpublished"
+msgstr "Nieopublikowany"
+
+msgid "Operations"
+msgstr "Operacje"
+
+msgid "Next ›"
+msgstr "Następny ›"
+
+msgid "‹ Previous"
+msgstr "‹ Poprzedni"
+
+msgid "Items per page"
+msgstr "Elementów na stronę"
+
+msgid "- All -"
+msgstr "- Wszystkie -"
+
+msgid "Shift"
+msgstr "Przesunięcie"
+
+msgid "« First"
+msgstr "« Pierwszy"
+
+msgid "Last »"
+msgstr "Ostatni »"
+
+msgid "Filter"
+msgstr "Filtruj"
+
+msgid "Reset"
+msgstr "Resetuj"
+
+msgid "Sort by"
+msgstr "Sortuj według"
+
+msgid "Ascending"
+msgstr "Rosnąco"
+
+msgid "Descending"
+msgstr "Malejąco"
+
+msgid "No buildings."
+msgstr "Brak budynków."
+
+msgid "Related"
+msgstr "Powiązanie"
+
+msgid "Related buildings"
+msgstr "Powiązane budynki"
+
+msgid "No related buildings."
+msgstr "Brak powiązanych budynków."
+
+msgid "All"
+msgstr "Wszystkie"
+
+msgid "Search and management of estates."
+msgstr "Wyszukaj i zarządzaj osiedlami."
+
+msgid "No estates."
+msgstr "Brak osiedli."
+
+msgid "Search and management of flats."
+msgstr "Wyszukaj i zarządzaj mieszkaniami."
+
+msgid "No flats."
+msgstr "Brak mieszkań."
+
+msgid "Search and management of floors."
+msgstr "Wyszukaj i zarządzaj piętrami."
+
+msgid "No floors."
+msgstr "Brak pięter."
+
+msgid "Related floors"
+msgstr "Powiązane piętra"
+
+msgid "Developer Demo"
+msgstr "Developer Demo"
+
+msgid "Provides limited demo data for visualization."
+msgstr "Zapewnia ograniczone demo dane dla wizualizacji"
+
+msgid "Developer"
+msgstr "Deweloper"
+
+msgid "Demo @entity"
+msgstr "Demo @entity"
+
+msgid "Paradise"
+msgstr "Paradise"
+
+msgid "Cool house"
+msgstr "Cool house"
+
+msgid "Developer Presentation"
+msgstr "Deweloper Prezentacja"
+
+msgid "Provides a block responsible for data presentation."
+msgstr "Zapewnia blok odpowiedzialny za prezentację danych."
+
+msgid "Select plugins to display"
+msgstr "Zaznacz wtyczki do wyświetlenia"
+
+msgid "At least one plugin must be enabled."
+msgstr "Co najmniej jedna wtyczka musi zostać włączona."
+
+msgid "settings"
+msgstr "ustawienia"
+
+msgid "Developer Search Engine"
+msgstr "Deweloper Wyszukiwarka"
+
+msgid "Provides a presentation tab with search engine."
+msgstr "Zapewnia zakładkę prezentacji z wyszukiwarką."
+
+msgid "Currently there are no plugin settings here."
+msgstr "Obecnie nie ma tutaj żadnych ustawień."
+
+msgid "Search Engine"
+msgstr "Wyszukiwarka"
+
+msgid "Work on this search engine is ongoing."
+msgstr "Trwają prace nad tą wyszukiwarką."
+
+msgid "Search engine"
+msgstr "Wyszukiwarka"
+
+msgid "Developer Visualization"
+msgstr "Deweloper Wizualizacja"
+
+msgid "Provides a block responsible for presentation data in visualization way."
+msgstr "Zapewnia blok odpowiedzialny za prezentację danych w formie wizualizacji."
+
+msgid "Coordinates"
+msgstr "Koordynaty"
+
+msgid "Select @entity by hovering over it with the cursor"
+msgstr "Wybierz @entity najeżdżając kursorem."
+
+msgid "Back"
+msgstr "Wstecz"
+
+msgid "Ask for offer"
+msgstr "Zapytaj o ofertę"
+
+msgid "Start display from building"
+msgstr "Zacznij wyświetlanie od budynku"
+
+msgid "Select starting estate"
+msgstr "Wybierz początkowe osiedle"
+
+msgid "Choose starting display estate."
+msgstr "Wybierz początkowe osiedle do wyświetlenia."
+
+msgid "Select starting building"
+msgstr "Wybierz początkowy budynek"
+
+msgid "Choose starting display building."
+msgstr "Wybierz początkowy budynek do wyświetlenia."
+
+msgid "Sell buildings"
+msgstr "Budynki na sprzedaż"
+
+msgid "If disable, flats are sold."
+msgstr "Jeśli wyłączony, w sprzedaży są mieszkania."
+
+msgid "Select webform"
+msgstr "Wybierz formularz"
+
+msgid "Choose webform to get leads."
+msgstr "Wybierz formularz do pozyskania leadów."
+
+msgid "Select main images style"
+msgstr "Wybierz główny styl obrazka"
+
+msgid "Optional, choose style to apply on main images."
+msgstr "Opcjonalnie, wybierz styl obrazka który ma zostać zastosowany."
+
+msgid "Enter svg paths fill color"
+msgstr "Wprowadź kolor wypełnienia ścieżek svg"
+
+msgid "Color in HEX format without \"#\" prefix. Default is #FBD71A."
+msgstr "Kolor w formacie HEX bez prefiksu '#'. Domyślnie jest to #FBD71A."
+
+msgid "Enter svg paths target opacity"
+msgstr "Wprowadź docelową przezroczystość ścieżek svg"
+
+msgid "Numbers from 0 to 100, to set svg path target opacity while hovering on it. Example 50 = 0.5, default is 30."
+msgstr ""
+"Numery od 0 do 100, aby ustawić docelową przezroczystosć ścieżek "
+"svg podczas najeżdżania na nie kursorem. Przykład 50 = 0.5, "
+"domyślnie wartość to 30."
+
+msgid "This field is required."
+msgstr "To pole jest wymagane."
+
+msgid "Field must contain hex format color without \"#\" prefix."
+msgstr "Pole musi zawierać kolor w formacie hex bez \"#\" prefiksu."
+
+msgid "Field must contain number from 0 to 100."
+msgstr "Pole musi zawierać numer od 0 do 100."
+
+msgid "Visualization"
+msgstr "Wizualizacja"
+
+msgid "Demo"
+msgstr "Demo"
+
+msgid "Used in Developer Demo module."
+msgstr "Używany w module Deweloper Demo."
+
+msgid "Ask for offer (Developer demo)"
+msgstr "Zapytaj o ofertę (Deweloper demo)"
+
+msgid "Used by Developer Visualization plugin in Developer Presentation block."
+msgstr "Używany przez wtyczkę Deweloper Wizualizacja w bloku Deweloper Prezentacja."
+
+msgid "firstname:\n  '#type': textfield\n  '#title': Name\n  '#required': true\nsurname:\n  '#type': textfield\n  '#title': Surname\n  '#required': true\nmail:\n  '#type': textfield\n  '#title': E-mail\n  '#required': true\nmessage:\n  '#type': textarea\n  '#title': Message\n  '#required': true\nactions:\n  '#type': webform_actions\n  '#title': 'Przycisk(i) prześlij'\n  '#submit__label': 'Ask for offer'"
+msgstr ""
+"firstname:\n"
+"  '#type': textfield\n"
+"  '#title': Imię\n"
+"  '#required': true\n"
+"surname:\n"
+"  '#type': textfield\n"
+"  '#title': Nazwisko\n"
+"  '#required': true\n"
+"mail:\n"
+"  '#type': textfield\n"
+"  '#title': E-mail\n"
+"  '#required': true\n"
+"message:\n"
+"  '#type': textarea\n"
+"  '#title': Wiadomość\n"
+"  '#required': true\n"
+"actions:\n"
+"  '#type': webform_actions\n"
+"  '#title': 'Przycisk(i) prześlij'\n"
+"  '#submit__label': 'Zapytaj o ofertę'"
+
+msgid "Your message has been send."
+msgstr "Twoja wiadomość została wysłana."
+
+msgid "Description"
+msgstr "Opis"
+
+msgid "Tooltip"
+msgstr "Podpowiedź"
+
+msgid "There are no plugins available, please install additional modules to place the block."
+msgstr "Nie ma żadnych dostępnych wtyczek, zainstaluj dodatkowe moduły aby umieścić blok."
