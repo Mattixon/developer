@@ -1,0 +1,67 @@
+developer.developer_estate.*:
+  type: config_entity
+  label: 'Estate type'
+  mapping:
+    id:
+      type: string
+      label: 'ID'
+    label:
+      type: label
+      label: 'Name'
+    description:
+      type: text
+      label: 'Description'
+    new_revision:
+      type: boolean
+      label: 'Whether a new revision should be created by default'
+
+developer.developer_building.*:
+  type: config_entity
+  label: 'Building type'
+  mapping:
+    id:
+      type: string
+      label: 'ID'
+    label:
+      type: label
+      label: 'Name'
+    description:
+      type: text
+      label: 'Description'
+    new_revision:
+      type: boolean
+      label: 'Whether a new revision should be created by default'
+
+developer.developer_floor.*:
+  type: config_entity
+  label: 'Floor type'
+  mapping:
+    id:
+      type: string
+      label: 'ID'
+    label:
+      type: label
+      label: 'Name'
+    description:
+      type: text
+      label: 'Description'
+    new_revision:
+      type: boolean
+      label: 'Whether a new revision should be created by default'
+
+developer.developer_flat.*:
+  type: config_entity
+  label: 'Flat type'
+  mapping:
+    id:
+      type: string
+      label: 'ID'
+    label:
+      type: label
+      label: 'Name'
+    description:
+      type: text
+      label: 'Description'
+    new_revision:
+      type: boolean
+      label: 'Whether a new revision should be created by default'

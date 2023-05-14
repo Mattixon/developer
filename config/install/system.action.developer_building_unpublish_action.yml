@@ -1,0 +1,10 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - developer
+id: developer_building_unpublish_action
+label: 'Unpublish building'
+type: developer_building
+plugin: entity:unpublish_action:developer_building
+configuration: {  }

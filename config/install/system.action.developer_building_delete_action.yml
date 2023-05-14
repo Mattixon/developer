@@ -1,0 +1,10 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - developer
+id: developer_building_delete_action
+label: 'Delete building'
+type: developer_building
+plugin: entity:delete_action:developer_building
+configuration: {  }

@@ -1,0 +1,10 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - developer
+id: developer_flat_unpublish_action
+label: 'Unpublish flat'
+type: developer_flat
+plugin: entity:unpublish_action:developer_flat
+configuration: {  }

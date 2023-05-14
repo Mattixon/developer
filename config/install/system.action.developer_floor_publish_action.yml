@@ -1,0 +1,10 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - developer
+id: developer_floor_publish_action
+label: 'Publish floor'
+type: developer_floor
+plugin: entity:publish_action:developer_floor
+configuration: {  }

@@ -1,0 +1,68 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - developer.developer_estate.default
+  module:
+    - developer
+    - path
+id: developer_estate.default.default
+targetEntityType: developer_estate
+bundle: default
+mode: default
+content:
+  created:
+    type: datetime_timestamp
+    weight: 83
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  langcode:
+    type: language_select
+    weight: 2
+    region: content
+    settings:
+      include_locked: true
+    third_party_settings: {  }
+  main_image:
+    type: entity_reference_autocomplete
+    weight: 85
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  name:
+    type: string_textfield
+    weight: 1
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  path:
+    type: path
+    weight: 84
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  published:
+    type: boolean_checkbox
+    weight: 81
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  uid:
+    type: entity_reference_autocomplete
+    weight: 82
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden: {  }

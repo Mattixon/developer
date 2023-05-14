@@ -1,0 +1,10 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - developer
+id: developer_estate_delete_action
+label: 'Delete estate'
+type: developer_estate
+plugin: entity:delete_action:developer_estate
+configuration: {  }

@@ -1,0 +1,10 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - developer
+id: default
+label: Default
+description: 'This is default building type.'
+new_revision: true
