@@ -63,7 +63,7 @@ class VisualizationService implements VisualizationServiceInterface {
   /**
    * {@inheritdoc}
    */
-  public function getStartingEntity(array $configuration): EntityInterface {
+  public function getStartingEntity(array $configuration): ?EntityInterface {
     if ($configuration['start_from_building'] === 0) {
       $entity_type = 'developer_estate';
       $id = $configuration['starting_estate'];
@@ -124,22 +124,34 @@ class VisualizationService implements VisualizationServiceInterface {
    * {@inheritdoc}
    */
   public function getEntityMainImageData(EntityInterface $entity, string $main_image_style = NULL): array {
-    /** @var \Drupal\media\Entity\Media */
     $media_image = $entity->main_image->entity;
+
+    if (is_null($media_image)) {
+      return [];
+    }
+
     $field_image = $media_image->field_developer_image;
     /** @var array */
     $image_properties = $field_image->getValue();
 
     /* Apply optional main image style */
     if ($main_image_style) {
-      /** @var \Drupal\image\ImageStyleInterface */
+      /** @var \Drupal\image\ImageStyleInterface|null */
       $image_style = $this->entityTypeManager->getStorage('image_style')->load($main_image_style);
-      /** @var \Drupal\file\Entity\File */
-      $file = $this->entityTypeManager->getStorage('file')->load($image_properties[0]['target_id']);
-      $image_uri = $file->getFileUri();
-      $styled_image_url = $image_style->buildUrl($image_uri);
-      $image_style->createDerivative($image_uri, $styled_image_url);
-      $main_image_url = $styled_image_url;
+
+      if (!empty($image_style)) {
+        /** @var \Drupal\file\Entity\File */
+        $file = $this->entityTypeManager->getStorage('file')->load($image_properties[0]['target_id']);
+        $image_uri = $file->getFileUri();
+        $styled_image_url = $image_style->buildUrl($image_uri);
+        $image_style->createDerivative($image_uri, $styled_image_url);
+        $main_image_url = $styled_image_url;
+      }
+      else {
+        /** @var \Drupal\file\Entity\File */
+        $file = $field_image->entity;
+        $main_image_url = $file->createFileUrl();
+      }
     }
     else {
       /** @var \Drupal\file\Entity\File */

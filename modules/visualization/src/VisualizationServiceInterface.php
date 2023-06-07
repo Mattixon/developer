@@ -12,7 +12,7 @@ interface VisualizationServiceInterface {
   /**
    * Get starting entity.
    */
-  public function getStartingEntity(array $configuration): EntityInterface;
+  public function getStartingEntity(array $configuration): ?EntityInterface;
 
   /**
    * Get Developer Entity.

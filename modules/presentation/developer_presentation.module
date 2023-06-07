@@ -5,6 +5,8 @@
  * Contain all hook functions for Developer Presentation module.
  */
 
+use Drupal\Core\Form\FormStateInterface;
+
 /**
  * Implements hook_theme().
  *
@@ -20,4 +22,29 @@ function developer_presentation_theme(): array {
       ],
     ],
   ];
+}
+
+/**
+ * Implements hook_form_alter().
+ *
+ * Add extra submit method on purge data.
+ */
+function developer_presentation_form_alter(array &$form, FormStateInterface $form_state, string $form_id): void {
+  /* Delete all embedded blocks */
+  if ($form_id === 'developer_data_purge') {
+    $form['#submit'][] = 'developer_presentation_purge_data_submit';
+  }
+}
+
+/**
+ * Custom submit callback on purge data, use to delete all presentation blocks.
+ */
+function developer_presentation_purge_data_submit(array &$form, FormStateInterface $form_state): void {
+  $placed_developer_blocks = \Drupal::service('entity_type.manager')
+    ->getStorage('block')
+    ->loadByProperties(['plugin' => 'developer_presentation']);
+
+  foreach ($placed_developer_blocks as $block) {
+    $block->delete();
+  }
 }

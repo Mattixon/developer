@@ -793,3 +793,9 @@ msgstr "Podpowiedź"
 
 msgid "There are no plugins available, please install additional modules to place the block."
 msgstr "Nie ma żadnych dostępnych wtyczek, zainstaluj dodatkowe moduły aby umieścić blok."
+
+msgid "Starting entity is missing, you need to rebuild this block with new data."
+msgstr "Brakuje encji startowej, musisz odbudować ten blok z nowymi danymi."
+
+msgid "Media is missing, you need to rebuild this block with new data."
+msgstr "Brakuje media, musisz odbudować ten blok z nowymi danymi."

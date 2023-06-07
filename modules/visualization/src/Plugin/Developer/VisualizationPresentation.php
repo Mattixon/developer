@@ -65,16 +65,16 @@ class VisualizationPresentation extends PresentationBase implements ContainerFac
     $default_webform = NULL;
     $default_image_style = NULL;
 
-    if (isset($this->configuration['starting_estate'])) {
+    if (isset($this->configuration['starting_estate']) && !empty($this->configuration['starting_estate'])) {
       $default_estate = $this->entityTypeManager->getStorage('developer_estate')->load($this->configuration['starting_estate']);
     }
-    if (isset($this->configuration['start_from_building'])) {
+    if (isset($this->configuration['start_from_building']) && !empty($this->configuration['start_from_building'])) {
       $default_building = $this->entityTypeManager->getStorage('developer_building')->load($this->configuration['starting_building']);
     }
-    if (isset($this->configuration['webform'])) {
+    if (isset($this->configuration['webform']) && !empty($this->configuration['webform'])) {
       $default_webform = $this->entityTypeManager->getStorage('webform')->load($this->configuration['webform']);
     }
-    if (isset($this->configuration['main_image_style'])) {
+    if (isset($this->configuration['main_image_style']) && !empty($this->configuration['main_image_style'])) {
       $default_image_style = $this->entityTypeManager->getStorage('image_style')->load($this->configuration['main_image_style']);
     }
 
@@ -216,8 +216,26 @@ class VisualizationPresentation extends PresentationBase implements ContainerFac
 
     /* Prepare block data */
     $starting_entity = $this->visualizationService->getStartingEntity($configuration);
+
+    if (empty($starting_entity)) {
+      return [
+        '#type' => 'html_tag',
+        '#tag' => 'span',
+        '#value' => $this->t('Starting entity is missing, you need to rebuild this block with new data.'),
+      ];
+    }
+
     $entity_name = $this->visualizationService->getEntityName($starting_entity);
     $main_image_data = $this->visualizationService->getEntityMainImageData($starting_entity, $configuration['main_image_style']);
+
+    if (empty($main_image_data)) {
+      return [
+        '#type' => 'html_tag',
+        '#tag' => 'span',
+        '#value' => $this->t('Media is missing, you need to rebuild this block with new data.'),
+      ];
+    }
+
     $svg_paths_data = $this->visualizationService->getRelatedEntitySvgData($starting_entity);
     $path_fill = $configuration['fill'] ?: 'FBD71A';
     $path_target_opacity = !empty($configuration['target_opacity']) ? $this->visualizationService->getTargetOpacity($configuration['target_opacity']) : '0.3';

@@ -12,8 +12,8 @@
  */
 function developer_visualization_install(): void {
   $moduleHandler = \Drupal::service('module_handler');
-  $coodinates_field_service = \Drupal::service('developer_visualization.coordinates_field_service');
-  $coodinates_field_service->createCoordinatesField();
+  $coordinates_field_service = \Drupal::service('developer_visualization.coordinates_field_service');
+  $coordinates_field_service->createCoordinatesField();
 
   if ($moduleHandler->moduleExists('developer_demo')) {
     $creator_service = \Drupal::service('developer_demo.create_data');
@@ -27,6 +27,7 @@ function developer_visualization_install(): void {
  * Delete coordinates field from developer entities.
  */
 function developer_visualization_uninstall(): void {
-  $coodinates_field_service = \Drupal::service('developer_visualization.coordinates_field_service');
-  $coodinates_field_service->deleteCoordinatesField();
+  /* Delete coordinates field from developer entities. */
+  $coordinates_field_service = \Drupal::service('developer_visualization.coordinates_field_service');
+  $coordinates_field_service->deleteCoordinatesField();
 }

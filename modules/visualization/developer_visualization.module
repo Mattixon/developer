@@ -54,15 +54,89 @@ function developer_visualization_entity_bundle_after_create(string $entity_type_
 /**
  * Implements hook_form_alter().
  *
- * Add states to Developer Building entity on coordinates.
+ * Add states to Developer Building entity on coordinates and prevent from
+ * deleting entity if it's used in any block.
  */
 function developer_visualization_form_alter(array &$form, FormStateInterface $form_state, string $form_id): void {
+  /* Add states to Developer Building entity on coordinates. */
   if (str_starts_with($form_id, 'developer_building_')) {
     $form['coordinates']['#states'] = [
       'visible' => [
         ':input[name="estate_id[0][target_id]"]' => ['filled' => TRUE],
       ],
     ];
+  }
+
+  /* Prevent from deleting entity if it's used in any block. */
+  $form_ids = [
+    'developer_estate_demo_delete_form',
+    'developer_building_demo_delete_form',
+    'developer_estate_delete_multiple_confirm_form',
+    'developer_building_delete_multiple_confirm_form',
+  ];
+
+  if (in_array($form_id, $form_ids)) {
+    $any_blocking_block = FALSE;
+    $placed_developer_blocks = \Drupal::service('entity_type.manager')
+      ->getStorage('block')
+      ->loadByProperties(['plugin' => 'developer_presentation']);
+    $entity_list = [];
+    $form_entity_type = explode('_', $form_id)[0] . '_' . explode('_', $form_id)[1];
+
+    /* For single delete forms */
+    if ($form_id === 'developer_estate_demo_delete_form' || $form_id === 'developer_building_demo_delete_form') {
+      /** @var \Drupal\developer\Form\Entity\EntityDeleteForm */
+      $form_object = $form_state->getFormObject();
+      $entity_list[$form_object->getEntity()->id()] = $form_object->getEntity();
+    }
+
+    /* For multiple delete forms */
+    if ($form_id === 'developer_estate_delete_multiple_confirm_form' || $form_id === 'developer_building_delete_multiple_confirm_form') {
+      /** @var \Drupal\developer\Form\Entity\EntityDeleteMultipleForm */
+      $form_object = $form_state->getFormObject();
+      $selection_list = $form_object->getSelection();
+
+      foreach ($selection_list as $entity_id => $selection) {
+        $entity_list[$entity_id] = \Drupal::service('entity_type.manager')
+          ->getStorage($form_entity_type)
+          ->load($entity_id);
+      }
+    }
+
+    if (!empty($entity_list)) {
+      /** @var \Drupal\block\Entity\Block $block */
+      foreach ($placed_developer_blocks as $block) {
+        /** @var array */
+        $block_settings = $block->get('settings');
+        $visualization_plugin_settings = $block_settings['visualization']['settings'];
+        $starting_entity_type = $visualization_plugin_settings['start_from_building'];
+        $starting_entity_id = $starting_entity_type ? $visualization_plugin_settings['starting_building'] : $visualization_plugin_settings['starting_estate'];
+
+        foreach ($entity_list as $single_entity_id => $single_entity) {
+          if ($starting_entity_id == $single_entity_id) {
+            if ($starting_entity_type === 0 && $form_entity_type === 'developer_estate') {
+              $any_blocking_block = TRUE;
+              break;
+            }
+            elseif ($starting_entity_type === 1 && $form_entity_type === 'developer_building') {
+              $any_blocking_block = TRUE;
+              break;
+            }
+          }
+        }
+      }
+
+      if ($any_blocking_block) {
+        unset($form['description']);
+        unset($form['entities']);
+        unset($form['actions']);
+        $form['error_related_block'] = [
+          '#type' => 'html_tag',
+          '#tag' => 'p',
+          '#value' => t('At least one block uses the entity you are about to delete. You can not remove it until you have removed all related blocks.'),
+        ];
+      }
+    }
   }
 }
 

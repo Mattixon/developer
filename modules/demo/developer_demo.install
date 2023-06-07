@@ -28,6 +28,43 @@ function developer_demo_install(): void {
  * Remove all demo data.
  */
 function developer_demo_uninstall(): void {
+  /* Delete demo presentation blocks */
+  $demo_blocks = [];
+  $placed_developer_blocks = \Drupal::service('entity_type.manager')
+    ->getStorage('block')
+    ->loadByProperties(['plugin' => 'developer_presentation']);
+
+  foreach ($placed_developer_blocks as $block_id => $block) {
+    /** @var array */
+    $block_settings = $block->get('settings');
+    $visualization_plugin_settings = $block_settings['visualization']['settings'];
+    $starting_entity_type = $visualization_plugin_settings['start_from_building'] ? 'developer_building' : 'developer_estate';
+    $starting_entity_id = $visualization_plugin_settings['start_from_building'] ? $visualization_plugin_settings['starting_building'] : $visualization_plugin_settings['starting_estate'];
+    $webform_id = $visualization_plugin_settings['webform'];
+
+    if ($webform_id === 'ask_for_offer_developer_demo') {
+      $demo_blocks[$block_id] = $block;
+      continue;
+    }
+
+    if (!empty($starting_entity_id)) {
+      /** @var \Drupal\developer\Entity\EntityInterface */
+      $starting_entity = \Drupal::service('entity_type.manager')
+        ->getStorage($starting_entity_type)
+        ->load($starting_entity_id);
+      $starting_entity_bundle_type = $starting_entity->type->target_id;
+
+      if ($starting_entity_bundle_type === 'demo') {
+        $demo_blocks[$block_id] = $block;
+      }
+    }
+  }
+
+  foreach ($demo_blocks as $block) {
+    $block->delete();
+  }
+
+  /* Remove all demo content */
   $entity_types = [
     'developer_flat',
     'developer_floor',
@@ -35,7 +72,6 @@ function developer_demo_uninstall(): void {
     'developer_estate',
   ];
 
-  /* Remove all demo content */
   foreach ($entity_types as $type) {
     $entity_storage = \Drupal::service('entity_type.manager')->getStorage($type);
     $entities = $entity_storage->loadByProperties(['type' => 'demo']);

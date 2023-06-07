@@ -44,6 +44,13 @@ class EntityDeleteMultipleForm extends DeleteMultipleForm {
   }
 
   /**
+   * Returns a selection list.
+   */
+  public function getSelection(): array {
+    return $this->selection;
+  }
+
+  /**
    * {@inheritdoc}
    *
    * @param array $form
@@ -79,8 +86,12 @@ class EntityDeleteMultipleForm extends DeleteMultipleForm {
       $form = parent::buildForm($form, $form_state, $entity_type_id);
     }
     else {
-      $form = [
-        '#markup' => $this->t('At least one selected %type entity is used. You need to delete related content first.', [
+      $title = parent::buildForm($form, $form_state, $entity_type_id)['#title'];
+      $form['#title'] = $title;
+      $form['error_related_entities'] = [
+        '#type' => 'html_tag',
+        '#tag' => 'p',
+        '#value' => $this->t('At least one selected %type entity is used. You need to delete related content first.', [
           '%type' => $type,
         ]),
       ];
