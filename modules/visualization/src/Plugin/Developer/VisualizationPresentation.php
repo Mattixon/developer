@@ -256,11 +256,10 @@ class VisualizationPresentation extends PresentationBase implements ContainerFac
     );
 
     $block['#cache'] = [
-      // 'tags' => [
-      //   'developer_building_list',
-      //   'developer_floor_list',
-      // ],
-      'max-age' => -1,
+      'tags' => [
+        'developer_building_list',
+        'developer_floor_list',
+      ],
     ];
 
     return $block;
