@@ -797,7 +797,7 @@ msgstr "Brakuje media, musisz odbudować ten blok z nowymi danymi."
 msgid "Set plugins order"
 msgstr "Ustaw kolejność wtyczek"
 
-msgid "Enable navigation"
+msgid "Use navigation"
 msgstr "Włącz nawigację"
 
 msgid "If checked, navigation will be use."
