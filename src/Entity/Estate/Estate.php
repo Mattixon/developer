@@ -174,6 +174,28 @@ class Estate extends EditorialContentEntityBase implements EntityInterface {
       ->setDisplayConfigurable('form', TRUE)
       ->setDisplayConfigurable('view', TRUE);
 
+    $fields['main_image'] = BaseFieldDefinition::create('entity_reference')
+      ->setLabel(t('Main image'))
+      ->setDescription(t('Main estate image for overview.'))
+      ->setSetting('target_type', 'media')
+      ->setSetting('handler', 'default')
+      ->setSetting('handler_settings', [
+        'target_bundles' => [
+          'developer_estate' => 'developer_estate',
+        ],
+      ])
+      ->setRevisionable(TRUE)
+      ->setRequired(TRUE)
+      ->setDisplayOptions('view', [
+        'label' => 'hidden',
+        'type' => 'entity_reference_entity_view',
+      ])
+      ->setDisplayOptions('form', [
+        'type' => 'entity_reference_autocomplete',
+      ])
+      ->setDisplayConfigurable('form', TRUE)
+      ->setDisplayConfigurable('view', TRUE);
+
     return $fields;
   }
 

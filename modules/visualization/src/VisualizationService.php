@@ -2,14 +2,13 @@
 
 namespace Drupal\developer_visualization;
 
-use Drupal\Core\Url;
 use Drupal\webform\WebformInterface;
 use Drupal\developer\Entity\Flat\Flat;
 use Drupal\developer\Entity\EntityInterface;
-use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Entity\EntityDisplayRepositoryInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
+use Drupal\Core\Url;
 
 /**
  * Visualization service.
@@ -38,7 +37,7 @@ class VisualizationService implements VisualizationServiceInterface {
   /**
    * Contains all flat statuses.
    */
-  public const ENTITIES_STATUSES = [
+  public const FLAT_STATUSES = [
     1 => 'Available',
     2 => 'Reserved',
     3 => 'Sold',
@@ -47,7 +46,7 @@ class VisualizationService implements VisualizationServiceInterface {
   /**
    * Contains statuses related fill.
    */
-  public const STATUSES_FILL = [
+  public const FLAT_STATUSES_FILL = [
     1 => 'green',
     2 => 'orange',
     3 => 'red',
@@ -59,7 +58,6 @@ class VisualizationService implements VisualizationServiceInterface {
   public function __construct(
     protected EntityTypeManagerInterface $entityTypeManager,
     protected EntityDisplayRepositoryInterface $entityDisplayRepository,
-    protected ConfigFactoryInterface $configFactory,
   ) {}
 
   /**
@@ -223,108 +221,98 @@ class VisualizationService implements VisualizationServiceInterface {
   /**
    * {@inheritdoc}
    */
-  public function getRelatedEntities(EntityInterface $developer_entity, string $related_entity_type): array {
-    $related_entity_field_name = $related_entity_type === 'developer_flat' ? 'floor_id' : 'estate_id';
-    $related_entities = $this->entityTypeManager
-      ->getStorage($related_entity_type)
-      ->loadByProperties([$related_entity_field_name => $developer_entity->id()]);
+  public function getRelatedFloorFlats(EntityInterface $floor_entity): array {
+    $floor_id = $floor_entity->id();
+    $related_floor_flats = $this->entityTypeManager->getStorage('developer_flat')->loadByProperties(['floor_id' => $floor_id]);
 
-    return $related_entities;
+    return $related_floor_flats;
   }
 
   /**
    * {@inheritdoc}
    */
-  public function getLegend(array $related_entities): array {
-    $legend = [];
+  public function getFloorLegend(array $related_floor_flats): array {
+    $floor_legend = [];
 
-    if (!empty($related_entities)) {
-      $legend = [
+    if (!empty($related_floor_flats)) {
+      $floor_legend = [
         '#type' => 'container',
         '#attributes' => [
-          'class' => ['legend'],
+          'class' => ['floor_legend'],
         ],
         'statuses' => [],
       ];
 
-      foreach ($related_entities as $entity) {
-        $entity_status = $entity->status->value;
-
-        if (empty($entity->status->value)) {
-          $entity_status = '1';
-        }
-
+      foreach ($related_floor_flats as $flat) {
+        $flat_status = $flat->status->value;
         /** @var string */
-        $status_name = self::ENTITIES_STATUSES[$entity_status];
-
+        $flat_status_name = self::FLAT_STATUSES[$flat_status];
         // @codingStandardsIgnoreStart
-        $legend['statuses']['status_' . $entity_status] = [
+        $floor_legend['statuses']['status_' . $flat_status] = [
           '#type' => 'html_tag',
           '#tag' => 'span',
           '#attributes' => [
-            'class' => [strtolower(self::ENTITIES_STATUSES[$entity_status])],
+            'class' => [strtolower(self::FLAT_STATUSES[$flat_status])],
           ],
-          '#value' => $this->t($status_name),
+          '#value' => $this->t($flat_status_name),
         ];
         // @codingStandardsIgnoreEnd
       }
     }
 
-    return $legend;
+    return $floor_legend;
   }
 
   /**
    * {@inheritdoc}
    */
-  public function convertToSvgPathsWithStatus(array $svg_paths_data, string $related_entity_type): array {
-    $svg_paths_data_with_status = [];
+  public function convertToFloorRelatedSvgPaths(array $svg_paths_data): array {
+    $floor_svg_paths_data = [];
 
-    foreach ($svg_paths_data as $entity_id => $path) {
-      $developer_entity = $this->entityTypeManager->getStorage($related_entity_type)->load($entity_id);
-      $entity_status = $developer_entity->status->value ?: '1';
-      $svg_paths_data_with_status[$entity_id]['coordinates'] = $path;
-      $svg_paths_data_with_status[$entity_id]['status'] = strtolower(self::ENTITIES_STATUSES[$entity_status]);
-      $svg_paths_data_with_status[$entity_id]['fill'] = self::STATUSES_FILL[$entity_status];
+    foreach ($svg_paths_data as $flat_id => $path) {
+      $flat = $this->entityTypeManager->getStorage('developer_flat')->load($flat_id);
+      $floor_svg_paths_data[$flat_id]['coordinates'] = $path;
+      $floor_svg_paths_data[$flat_id]['status'] = strtolower(self::FLAT_STATUSES[$flat->status->value]);
+      $floor_svg_paths_data[$flat_id]['fill'] = self::FLAT_STATUSES_FILL[$flat->status->value];
     }
 
-    return $svg_paths_data_with_status;
+    return $floor_svg_paths_data;
   }
 
   /**
    * {@inheritdoc}
    */
-  public function getRelatedEntitiesTooltipData(EntityInterface $developer_entity, string $related_entity_type): array {
-    $related_entities = $this->getRelatedEntities($developer_entity, $related_entity_type);
-    $view_builder = $this->entityTypeManager->getViewBuilder($related_entity_type);
-    $tooltip_data = [];
+  public function getRelatedFlatsTooltipData(EntityInterface $floor_entity): array {
+    $related_floor_flats = $this->getRelatedFloorFlats($floor_entity);
+    $view_builder = $this->entityTypeManager->getViewBuilder('developer_flat');
+    $flats_tooltip_data = [];
 
-    foreach ($related_entities as $entity_id => $entity) {
-      $entity_status = $entity->status->value ?? '1';
-      $entity_view_modes = $this->entityDisplayRepository->getViewModeOptionsByBundle($related_entity_type, $entity->type->target_id);
+    foreach ($related_floor_flats as $flat_id => $flat) {
+      $flat_status = $flat->status->value;
+      $flat_view_modes = $this->entityDisplayRepository->getViewModeOptionsByBundle('developer_flat', $flat->type->target_id);
 
-      if ($entity_status !== '3' && array_key_exists('tooltip', $entity_view_modes)) {
-        $entity_view = $view_builder->view($entity, 'tooltip');
-        $tooltip_data[$entity_id] = $entity_view;
+      if ($flat_status !== '3' && array_key_exists('tooltip', $flat_view_modes)) {
+        $flat_view = $view_builder->view($flat, 'tooltip');
+        $flats_tooltip_data[$flat_id] = $flat_view;
       }
     }
 
-    return $tooltip_data;
+    return $flats_tooltip_data;
   }
 
   /**
    * {@inheritdoc}
    */
-  public function getEntityDescription(EntityInterface $developer_entity): array {
-    $entity_type_id = $developer_entity->getEntityTypeId();
-    $entity_view_modes = $this->entityDisplayRepository->getViewModeOptionsByBundle($entity_type_id, $developer_entity->type->target_id);
-    $entity_description = [];
+  public function getFlatDescription(EntityInterface $flat_entity): array {
+    $flat_entity_view_modes = $this->entityDisplayRepository->getViewModeOptionsByBundle('developer_flat', $flat_entity->type->target_id);
+    $flat_view = [];
 
-    if (array_key_exists('description', $entity_view_modes)) {
-      $view_builder = $this->entityTypeManager->getViewBuilder($entity_type_id);
-      $entity_description = $view_builder->view($developer_entity, 'description');
+    if (array_key_exists('description', $flat_entity_view_modes)) {
+      $view_builder = $this->entityTypeManager->getViewBuilder('developer_flat');
+      $flat_view = $view_builder->view($flat_entity, 'description');
     }
 
-    return $entity_description;
+    return $flat_view;
   }
 
   /**
@@ -335,185 +323,6 @@ class VisualizationService implements VisualizationServiceInterface {
     $webform = $this->entityTypeManager->getStorage('webform')->load($webform_id);
     $webform_view = $webform instanceof WebformInterface ? $view_builder->view($webform) : [];
     return $webform_view;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function getNavigationOptions(EntityInterface $developer_entity, string $starting_entity_name): array {
-    $navigation_options = [
-      'buildings' => [],
-      'default_building' => NULL,
-      'floors' => [],
-      'default_floor' => NULL,
-      'flats' => [],
-      'default_flat' => NULL,
-    ];
-    $is_create_buildings_options = $starting_entity_name === 'estate' ? TRUE : FALSE;
-    $entity_type_id = $developer_entity->getEntityType()->id();
-
-    /* Estate stage */
-    if ($entity_type_id === 'developer_estate' && $is_create_buildings_options) {
-
-      /* Set building options */
-      $building_storage = $this->entityTypeManager->getStorage('developer_building');
-      $related_buildings_ids = $building_storage
-        ->getQuery()
-        ->condition('estate_id', $developer_entity->id())
-        ->execute();
-      $related_buildings = $building_storage->loadMultiple($related_buildings_ids);
-
-      $navigation_options['buildings']['null'] = '-';
-      $navigation_options['floors']['null'] = '-';
-      $navigation_options['flats']['null'] = '-';
-
-      foreach ($related_buildings as $id => $building) {
-        $navigation_options['buildings'][$id] = $building->label();
-      }
-    }
-
-    /* Building stage */
-    if ($entity_type_id === 'developer_building') {
-
-      if ($is_create_buildings_options) {
-        /* Set default building option */
-        $navigation_options['default_building'] = $developer_entity->id();
-
-        /* Set building options */
-        $building_storage = $this->entityTypeManager->getStorage('developer_building');
-        $sibling_buildings_ids = $building_storage
-          ->getQuery()
-          ->condition('estate_id', $developer_entity->estate_id->target_id)
-          ->execute();
-        $sibling_buildings = $building_storage->loadMultiple($sibling_buildings_ids);
-
-        foreach ($sibling_buildings as $id => $building) {
-          $navigation_options['buildings'][$id] = $building->label();
-        }
-      }
-
-      /* Set floor options */
-      $navigation_options['floors']['null'] = '-';
-      $building_storage = $this->entityTypeManager->getStorage('developer_floor');
-      $related_floors_ids = $building_storage
-        ->getQuery()
-        ->condition('building_id', $developer_entity->id())
-        ->execute();
-      $related_floors = $building_storage->loadMultiple($related_floors_ids);
-
-      foreach ($related_floors as $id => $floor) {
-        $navigation_options['floors'][$id] = $floor->label();
-      }
-
-      /* Set flat options */
-      $navigation_options['flats']['null'] = '-';
-    }
-
-    /* Floor stage */
-    if ($entity_type_id === 'developer_floor') {
-
-      if ($is_create_buildings_options) {
-        /* Set default building option */
-        $navigation_options['default_building'] = $developer_entity->building_id->target_id;
-        $parent_estate_id = $developer_entity->building_id->entity->estate_id->target_id;
-
-        /* Set building options */
-        $building_storage = $this->entityTypeManager->getStorage('developer_building');
-        $parent_buildings_ids = $building_storage
-          ->getQuery()
-          ->condition('estate_id', $parent_estate_id)
-          ->execute();
-        $parent_buildings = $building_storage->loadMultiple($parent_buildings_ids);
-
-        foreach ($parent_buildings as $id => $building) {
-          $navigation_options['buildings'][$id] = $building->label();
-        }
-      }
-
-      /* Set default floor option */
-      $navigation_options['default_floor'] = $developer_entity->id();
-
-      /* Set floor options */
-      $floor_storage = $this->entityTypeManager->getStorage('developer_floor');
-      $sibling_floors_ids = $floor_storage
-        ->getQuery()
-        ->condition('building_id', $developer_entity->building_id->target_id)
-        ->execute();
-      $sibling_floors = $floor_storage->loadMultiple($sibling_floors_ids);
-
-      foreach ($sibling_floors as $id => $floor) {
-        $navigation_options['floors'][$id] = $floor->label();
-      }
-
-      /* Set flat options */
-      $navigation_options['flats']['null'] = '-';
-      $flat_storage = $this->entityTypeManager->getStorage('developer_flat');
-      $related_flats_ids = $flat_storage
-        ->getQuery()
-        ->condition('floor_id', $developer_entity->id())
-        ->condition('status', 3, 'NOT IN')
-        ->execute();
-      $related_flats = $flat_storage->loadMultiple($related_flats_ids);
-
-      foreach ($related_flats as $id => $flat) {
-        $navigation_options['flats'][$id] = $flat->label();
-      }
-    }
-
-    /* Flat stage */
-    if ($entity_type_id === 'developer_flat') {
-
-      if ($is_create_buildings_options) {
-        /* Set default building option */
-        $navigation_options['default_building'] = $developer_entity->floor_id->entity->building_id->target_id;
-        $parent_estate_id = $developer_entity->floor_id->entity->building_id->entity->estate_id->target_id;
-
-        /* Set building options */
-        $building_storage = $this->entityTypeManager->getStorage('developer_building');
-        $parent_buildings_ids = $building_storage
-          ->getQuery()
-          ->condition('estate_id', $parent_estate_id)
-          ->execute();
-        $parent_buildings = $building_storage->loadMultiple($parent_buildings_ids);
-
-        foreach ($parent_buildings as $id => $building) {
-          $navigation_options['buildings'][$id] = $building->label();
-        }
-      }
-
-      /* Set default floor option */
-      $navigation_options['default_floor'] = $developer_entity->floor_id->target_id;
-
-      /* Set floor options */
-      $floor_storage = $this->entityTypeManager->getStorage('developer_floor');
-      $parent_floors_ids = $floor_storage
-        ->getQuery()
-        ->condition('building_id', $developer_entity->floor_id->entity->building_id->target_id)
-        ->execute();
-      $parent_floors = $floor_storage->loadMultiple($parent_floors_ids);
-
-      foreach ($parent_floors as $id => $floor) {
-        $navigation_options['floors'][$id] = $floor->label();
-      }
-
-      /* Set default flat option */
-      $navigation_options['default_flat'] = $developer_entity->id();
-
-      /* Set flat options */
-      $flat_storage = $this->entityTypeManager->getStorage('developer_flat');
-      $sibling_flats_ids = $flat_storage
-        ->getQuery()
-        ->condition('floor_id', $developer_entity->floor_id->target_id)
-        ->condition('status', 3, 'NOT IN')
-        ->execute();
-      $sibling_flats = $flat_storage->loadMultiple($sibling_flats_ids);
-
-      foreach ($sibling_flats as $id => $flat) {
-        $navigation_options['flats'][$id] = $flat->label();
-      }
-    }
-
-    return $navigation_options;
   }
 
   /**
@@ -548,95 +357,6 @@ class VisualizationService implements VisualizationServiceInterface {
     /* Clear svg paths if building is for sell */
     if ($entity_name === 'floor' && $sell_entity_name === 'building') {
       $svg_paths_data = [];
-    }
-
-    /* Prepare navigation */
-    $navigation = [];
-    $is_use_navigation = $this->configFactory->get('block.block.' . $block_id)->get('settings.visualization.settings.use_navigation');
-
-    if ($is_use_navigation) {
-      $navigation_options = $this->getNavigationOptions($this->getDeveloperEntity($entity_name, $entity_id), $starting_entity_name);
-      $selects_count = 0;
-      $navigation = [
-        '#type' => 'container',
-        'navigation' => [],
-      ];
-
-      if ($starting_entity_name === 'estate') {
-        $navigation['navigation']['select_building'] = [
-          '#type' => 'select',
-          '#title' => $this->t('Building'),
-          '#options' => $navigation_options['buildings'],
-          '#value' => $navigation_options['default_building'],
-        ];
-        $selects_count++;
-      }
-
-      $navigation['navigation']['select_floor'] = [
-        '#type' => 'select',
-        '#title' => $this->t('Floor'),
-        '#options' => $navigation_options['floors'],
-        '#value' => $navigation_options['default_floor'],
-      ];
-      $selects_count++;
-
-      if ($sell_entity_name === 'flat') {
-        $navigation['navigation']['select_flat'] = [
-          '#type' => 'select',
-          '#title' => $this->t('Flat'),
-          '#options' => $navigation_options['flats'],
-          '#value' => $navigation_options['default_flat'],
-        ];
-        $selects_count++;
-      }
-
-      switch ($selects_count) {
-        case 2:
-          $navigation['#attributes']['class'] = [
-            'navigation-container',
-            'two-selects',
-          ];
-          break;
-
-        case 3:
-          $navigation['#attributes']['class'] = [
-            'navigation-container',
-            'three-selects',
-          ];
-          break;
-
-        default:
-          $navigation['#attributes']['class'] = [
-            'navigation-container',
-            'one-select',
-          ];
-      }
-
-      if ($starting_entity_name === 'building') {
-        $navigation_container_classes[] = 'two-selects';
-      }
-    }
-
-    /* Prepare building description button */
-    $description_btn = [];
-
-    if ($sell_entity_name === 'building' && $entity_name == 'building') {
-      $building_entity_id = $this->getDeveloperEntity($entity_name, $entity_id)->id();
-
-      $description_btn = [
-        '#type' => 'link',
-        '#title' => $this->t('Description'),
-        '#url' => Url::fromRoute('entity.developer_building.canonical_description', ['developer_building' => $building_entity_id]),
-        '#attributes' => [
-          'class' => [
-            'description-btn',
-            'developer-visualization-btn',
-            'use-ajax',
-          ],
-          'data-dialog-options' => '{"height":"80%","width":"90%","max-height":"650","max-width":"750"}',
-          'data-dialog-type' => 'modal',
-        ],
-      ];
     }
 
     /* Prepare guide */
@@ -693,31 +413,31 @@ class VisualizationService implements VisualizationServiceInterface {
           'data-dialog-type' => 'modal',
         ],
       ];
+
+      if ($starting_entity_name === 'estate') {
+        $ask_for_offer_btn['#attributes']['class'][] = 'bottom-right';
+      }
     }
 
-    /* Prepare floor view or estate view if building are for sale */
-    $legend = [];
-    $tooltip_data = [];
+    /* Prepare floor view */
+    $floor_legend = [];
+    $flats_tooltip_data = [];
 
-    if (
-      ($entity_name === 'floor' && $sell_entity_name === 'flat') ||
-      ($entity_name === 'estate' && $sell_entity_name === 'building')
-    ) {
-      $related_entity_type = $entity_name === 'floor' ? 'developer_flat' : 'developer_building';
-      $developer_entity = $this->getDeveloperEntity($entity_name, $entity_id);
-      $related_entities = $this->getRelatedEntities($developer_entity, $related_entity_type);
-      $legend = $this->getLegend($related_entities);
-      $svg_paths_data = $this->convertToSvgPathsWithStatus($svg_paths_data, $related_entity_type);
-      $tooltip_data = $this->getRelatedEntitiesTooltipData($developer_entity, $related_entity_type);
+    if ($entity_name === 'floor') {
+      $floor_entity = $this->getDeveloperEntity($entity_name, $entity_id);
+      $related_floor_flats = $this->getRelatedFloorFlats($floor_entity);
+      $floor_legend = $this->getFloorLegend($related_floor_flats);
+      $svg_paths_data = $this->convertToFloorRelatedSvgPaths($svg_paths_data);
+      $flats_tooltip_data = $this->getRelatedFlatsTooltipData($floor_entity);
     }
-
-    $entity_description = [];
-    $webform = [];
 
     /* Prepare flat view */
+    $flat_description = [];
+    $webform = [];
+
     if ($entity_name === 'flat') {
       $flat_entity = $this->getDeveloperEntity($entity_name, $entity_id);
-      $entity_description = $this->getEntityDescription($flat_entity);
+      $flat_description = $this->getFlatDescription($flat_entity);
       $webform = $this->getWebformView($webform_id);
     }
 
@@ -728,8 +448,7 @@ class VisualizationService implements VisualizationServiceInterface {
         'library' => ['developer_visualization/global'],
       ],
       '#block_id' => $block_id,
-      '#navigation' => $navigation,
-      '#entity_description' => $entity_description,
+      '#flat_description' => $flat_description,
       '#guide' => $guide,
       '#image' => [
         'width' => $main_image_data['width'],
@@ -745,11 +464,10 @@ class VisualizationService implements VisualizationServiceInterface {
         'style' => $main_image_data['style'],
       ],
       '#paths' => $svg_paths_data,
-      '#description_btn' => $description_btn,
       '#back_btn' => $back_btn,
       '#ask_for_offer_btn' => $ask_for_offer_btn,
-      '#legend' => $legend,
-      '#tooltip_data' => $tooltip_data,
+      '#floor_legend' => $floor_legend,
+      '#flats_tooltip_data' => $flats_tooltip_data,
       '#webform' => $webform,
       '#front_url' => Url::fromRoute('<front>'),
     ];

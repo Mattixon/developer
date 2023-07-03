@@ -8,6 +8,15 @@ targetEntityType: developer_floor
 bundle: default
 mode: default
 content:
+  main_image:
+    type: entity_reference_entity_view
+    label: hidden
+    settings:
+      view_mode: default
+      link: false
+    third_party_settings: {  }
+    weight: 1
+    region: content
   name:
     type: string
     label: hidden

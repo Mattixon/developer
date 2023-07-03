@@ -2,11 +2,6 @@ services:
   developer_visualization.coordinates_field_service:
     class: Drupal\developer_visualization\CoordinatesFieldService
     arguments: ['@entity_type.manager', '@entity_type.bundle.info', '@entity_display.repository']
-
-  developer_visualization.main_image_field_service:
-    class: Drupal\developer_visualization\MainImageFieldService
-    arguments: ['@entity_type.manager', '@entity_type.bundle.info', '@entity_display.repository']
-
   developer_visualization.visualization_service:
     class: Drupal\developer_visualization\VisualizationService
-    arguments: ['@entity_type.manager', '@entity_display.repository', '@config.factory']
+    arguments: ['@entity_type.manager', '@entity_display.repository']

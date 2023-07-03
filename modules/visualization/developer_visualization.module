@@ -18,16 +18,14 @@ function developer_visualization_theme(): array {
     'visualization_presentation' => [
       'variables' => [
         'block_id' => NULL,
-        'navigation' => [],
-        'entity_description' => [],
+        'flat_description' => [],
         'guide' => NULL,
         'image' => [],
         'paths' => [],
-        'description_btn' => NULL,
         'back_btn' => NULL,
         'ask_for_offer_btn' => NULL,
-        'legend' => [],
-        'tooltip_data' => [],
+        'floor_legend' => [],
+        'flats_tooltip_data' => [],
         'webform' => [],
         'front_url' => NULL,
       ],
@@ -38,24 +36,18 @@ function developer_visualization_theme(): array {
 /**
  * Implements hook_entity_bundle_after_create().
  *
- * Add coordinates and main image fields field when new entity type is build.
+ * Add coordinates field when new entity type is build.
  */
 function developer_visualization_entity_bundle_after_create(string $entity_type_id): void {
   $entity_type_list = [
-    'developer_estate',
     'developer_building',
     'developer_floor',
     'developer_flat',
   ];
 
   if (in_array($entity_type_id, $entity_type_list)) {
-    $main_image_field_service = \Drupal::service('developer_visualization.main_image_field_service');
-    $main_image_field_service->createMainImageField();
-
-    if ($entity_type_id !== 'developer_estate') {
-      $coodinates_field_service = \Drupal::service('developer_visualization.coordinates_field_service');
-      $coodinates_field_service->createCoordinatesField();
-    }
+    $coodinates_field_service = \Drupal::service('developer_visualization.coordinates_field_service');
+    $coodinates_field_service->createCoordinatesField();
   }
 }
 
@@ -67,7 +59,7 @@ function developer_visualization_entity_bundle_after_create(string $entity_type_
  */
 function developer_visualization_form_alter(array &$form, FormStateInterface $form_state, string $form_id): void {
   /* Add states to Developer Building entity on coordinates. */
-  if (str_starts_with($form_id, 'developer_building_') && isset($form['coordinates'])) {
+  if (str_starts_with($form_id, 'developer_building_')) {
     $form['coordinates']['#states'] = [
       'visible' => [
         ':input[name="estate_id[0][target_id]"]' => ['filled' => TRUE],

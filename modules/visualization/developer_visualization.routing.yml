@@ -53,10 +53,3 @@ developer_visualization.visualizations_ajax_prev_step:
         type: string
       main_image_style:
         type: string
-
-entity.developer_building.canonical_description:
-  path: '/building/{developer_building}/description'
-  defaults:
-    _entity_view: 'developer_building.description'
-  requirements:
-    _entity_access: 'developer_building.view'

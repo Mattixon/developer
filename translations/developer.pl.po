@@ -285,6 +285,9 @@ msgstr "Nazwa encji Budynku."
 msgid "Main image"
 msgstr "Główny obraz"
 
+msgid "Main building image where all related floors will be shown."
+msgstr "Główny obraz budynku gdzie zostaną pokazane wszystkie powiązane piętra."
+
 msgid "The name of the associated estate."
 msgstr "Nazwa powiązanego osiedla."
 
@@ -315,6 +318,9 @@ msgstr "Czas kiedy osiedle zostało ostatnio edytowane."
 msgid "The name of the Estate entity."
 msgstr "Nazwa encji Osiedla."
 
+msgid "Main estate image for overview."
+msgstr "Główny obraz osiedla do przeglądu."
+
 msgid "estate"
 msgstr "osiedle"
 
@@ -336,8 +342,8 @@ msgstr "Czas kiedy mieszkanie zostało ostatnio edytowane."
 msgid "The name of the Flat entity."
 msgstr "Nazwa encji Mieszkania."
 
-msgid "Main entity image used in visualization plugin."
-msgstr "Główny obraz encji używany we wtyczce wizualizacja."
+msgid "Main flat image for better perspective."
+msgstr "Główny obraz mieszkania dla lepszej perspektywy."
 
 msgid "The name of the associated floor."
 msgstr "Nazwa powiązanego piętra."
@@ -359,9 +365,6 @@ msgstr "Wstępnie zarezerwowane"
 
 msgid "Status of the flat."
 msgstr "Status mieszkania."
-
-msgid "Status of the building."
-msgstr "Status budynku."
 
 msgid "Flat"
 msgstr "Mieszkanie"
@@ -386,6 +389,9 @@ msgstr "Czas kiedy piętro zostało ostatnio edytowane."
 
 msgid "The name of the Floor entity."
 msgstr "Nazwa encji Piętra."
+
+msgid "Main floor image where all related flats will be shown."
+msgstr "Główny obraz piętra gdzie zostaną pokazane wszystkie powiązane mieszkania."
 
 msgid "The name of the associated building."
 msgstr "Nazwa powiązanego budynku."
@@ -516,14 +522,14 @@ msgstr "Deweloper - piętro"
 msgid "Used in the Developer module to define the appearance of the floor."
 msgstr "Używany w module Deweloper do określenia wyglądu piętra."
 
-msgid "Large (480×480) [Developer]"
-msgstr "Duży (480×480) [Deweloper]"
+msgid "Large (480×480)"
+msgstr "Duży (480×480)"
 
-msgid "Medium (220×220) [Developer]"
-msgstr "Średni (220×220) [Deweloper]"
+msgid "Medium (220×220)"
+msgstr "Średni (220×220)"
 
-msgid "Small (100×100) [Developer]"
-msgstr "Mały (100×100) [Deweloper]"
+msgid "Small (100×100)"
+msgstr "Mały (100×100)"
 
 msgid "Search and management of buildings."
 msgstr "Wyszukaj i zarządzaj budynkami."
@@ -793,12 +799,3 @@ msgstr "Brakuje encji startowej, musisz odbudować ten blok z nowymi danymi."
 
 msgid "Media is missing, you need to rebuild this block with new data."
 msgstr "Brakuje media, musisz odbudować ten blok z nowymi danymi."
-
-msgid "Set plugins order"
-msgstr "Ustaw kolejność wtyczek"
-
-msgid "Enable navigation"
-msgstr "Włącz nawigację"
-
-msgid "If checked, navigation will be use."
-msgstr "Jeśli zaznaczone, nawigacja będzie używana."
