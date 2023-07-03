@@ -84,3 +84,31 @@ function developer_toolbar_alter(array &$items): void {
 
   $items['administration']['#attached']['library'][] = $attached_library;
 }
+
+/**
+ * Implements hook_link_alter().
+ *
+ * Disable destination in list operations, provides way to multiple delete
+ * related entities.
+ */
+function developer_link_alter(array &$variables): void {
+  $link_route_name = NULL;
+
+  if ($variables['url']->isRouted()) {
+    $link_route_name = $variables['url']->getRouteName();
+  }
+
+  $related_views_entities = [
+    'developer_buildings',
+    'developer_floors',
+    'developer_flats',
+  ];
+
+  if (!empty($link_route_name) && str_starts_with($link_route_name, 'view.')) {
+    foreach ($related_views_entities as $entity) {
+      if ($link_route_name === 'view.' . $entity . '.related') {
+        unset($variables['options']['query']['destination']);
+      }
+    }
+  }
+}

@@ -29,4 +29,5 @@ hidden:
   created: true
   estate_id: true
   langcode: true
+  status: true
   uid: true

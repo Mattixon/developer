@@ -1,0 +1,15 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - developer_visualization
+id: developer_building
+label: 'Developer building'
+description: 'Used in the Developer module to define the appearance of the building.'
+source: image
+queue_thumbnail_downloads: false
+new_revision: false
+source_configuration:
+  source_field: field_developer_image
+field_map: {  }

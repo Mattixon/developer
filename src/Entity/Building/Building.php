@@ -174,28 +174,6 @@ class Building extends EditorialContentEntityBase implements EntityInterface {
       ->setDisplayConfigurable('form', TRUE)
       ->setDisplayConfigurable('view', TRUE);
 
-    $fields['main_image'] = BaseFieldDefinition::create('entity_reference')
-      ->setLabel(t('Main image'))
-      ->setDescription(t('Main building image where all related floors will be shown.'))
-      ->setSetting('target_type', 'media')
-      ->setSetting('handler', 'default')
-      ->setSetting('handler_settings', [
-        'target_bundles' => [
-          'developer_building' => 'developer_building',
-        ],
-      ])
-      ->setRevisionable(TRUE)
-      ->setRequired(TRUE)
-      ->setDisplayOptions('view', [
-        'label' => 'hidden',
-        'type' => 'entity_reference_entity_view',
-      ])
-      ->setDisplayOptions('form', [
-        'type' => 'entity_reference_autocomplete',
-      ])
-      ->setDisplayConfigurable('form', TRUE)
-      ->setDisplayConfigurable('view', TRUE);
-
     $fields['estate_id'] = BaseFieldDefinition::create('entity_reference')
       ->setLabel(t('Estate'))
       ->setDescription(t('The name of the associated estate.'))
@@ -213,6 +191,25 @@ class Building extends EditorialContentEntityBase implements EntityInterface {
           'autocomplete_type' => 'tags',
           'placeholder' => '',
         ],
+      ])
+      ->setDisplayConfigurable('form', TRUE)
+      ->setDisplayConfigurable('view', TRUE);
+
+    $fields['status'] = BaseFieldDefinition::create('list_integer')
+      ->setSettings([
+        'allowed_values' => [
+          1 => t('Available'),
+          2 => t('Reserved'),
+          3 => t('Sold'),
+        ],
+      ])
+      ->setDefaultValue(1)
+      ->setLabel(t('Status'))
+      ->setDescription(t('Status of the building.'))
+      ->setRevisionable(TRUE)
+      ->setTranslatable(TRUE)
+      ->setDisplayOptions('form', [
+        'type' => 'options_select',
       ])
       ->setDisplayConfigurable('form', TRUE)
       ->setDisplayConfigurable('view', TRUE);

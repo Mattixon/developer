@@ -175,28 +175,6 @@ class Flat extends EditorialContentEntityBase implements EntityInterface {
       ->setDisplayConfigurable('form', TRUE)
       ->setDisplayConfigurable('view', TRUE);
 
-    $fields['main_image'] = BaseFieldDefinition::create('entity_reference')
-      ->setLabel(t('Main image'))
-      ->setDescription(t('Main flat image for better perspective.'))
-      ->setSetting('target_type', 'media')
-      ->setSetting('handler', 'default')
-      ->setSetting('handler_settings', [
-        'target_bundles' => [
-          'developer_flat' => 'developer_flat',
-        ],
-      ])
-      ->setRevisionable(TRUE)
-      ->setRequired(TRUE)
-      ->setDisplayOptions('view', [
-        'label' => 'hidden',
-        'type' => 'entity_reference_entity_view',
-      ])
-      ->setDisplayOptions('form', [
-        'type' => 'entity_reference_autocomplete',
-      ])
-      ->setDisplayConfigurable('form', TRUE)
-      ->setDisplayConfigurable('view', TRUE);
-
     $fields['floor_id'] = BaseFieldDefinition::create('entity_reference')
       ->setLabel(t('Floor'))
       ->setDescription(t('The name of the associated floor.'))

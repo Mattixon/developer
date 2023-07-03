@@ -1,0 +1,34 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.media.developer_building.field_developer_image
+    - image.style.large
+    - media.type.developer_building
+  module:
+    - image
+  enforced:
+    module:
+      - developer_visualization
+id: media.developer_building.default
+targetEntityType: media
+bundle: developer_building
+mode: default
+content:
+  field_developer_image:
+    type: image
+    label: visually_hidden
+    settings:
+      image_link: ''
+      image_style: large
+      image_loading:
+        attribute: lazy
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  created: true
+  langcode: true
+  name: true
+  thumbnail: true
+  uid: true
