@@ -54,6 +54,34 @@ developer_visualization.visualizations_ajax_prev_step:
       main_image_style:
         type: string
 
+developer_visualization.visualizations_ajax_change_step:
+  path: '/developer-visualization/change/{block_id}/{entity_name}/{entity_id}/{path_fill}/{path_target_opacity}/{starting_entity_name}/{sell_entity_name}/{webform_id}/{main_image_style}'
+  defaults:
+    _controller: 'Drupal\developer_visualization\Controller\AjaxVisualizationSteps::changeStep'
+    main_image_style: NULL
+  requirements:
+    _access: 'TRUE'
+  options:
+    parameters:
+      block_id:
+        type: string
+      entity_name:
+        type: string
+      entity_id:
+        type: string
+      path_fill:
+        type: string
+      path_target_opacity:
+        type: string
+      starting_entity_name:
+        type: string
+      sell_entity_name:
+        type: string
+      webform_id:
+        type: string
+      main_image_style:
+        type: string
+
 entity.developer_building.canonical_description:
   path: '/building/{developer_building}/description'
   defaults:

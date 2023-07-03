@@ -77,7 +77,7 @@ interface VisualizationServiceInterface {
   /**
    * Get navigation options.
    */
-  public function getNavigationOptions(EntityInterface $developer_entity, string $starting_entity_name): array;
+  public function getNavigationOptions(EntityInterface $developer_entity, string $starting_entity_name, string $sell_entity_name): array;
 
   /**
    * Build block content.

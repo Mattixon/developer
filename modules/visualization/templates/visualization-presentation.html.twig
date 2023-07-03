@@ -49,7 +49,7 @@
       data-webform-id="{{ image.webform_id }}"
       {% if image.style %} data-image-style="{{ image.style }}"> {% endif %}
     >
-      <image width="100%" height="auto" href="{{ image.url }}"></image>
+      <image width="100%" href="{{ image.url }}"></image>
       {% for id, path in paths %}
         {% if image.entity_name == 'estate' and image.sell_entity_name == 'building' %}
           <path

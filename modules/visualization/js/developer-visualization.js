@@ -1,5 +1,5 @@
 ((Drupal) => {
-	Drupal.behaviors.developer_visualization_content = {
+	Drupal.behaviors.developer_visualization = {
 		attach: function (context, settings) {
       const blocks = document.querySelectorAll('.developer-presentation');
 
@@ -12,6 +12,7 @@
           const svgPaths = svg.querySelectorAll('path');
           const backBtn = svgContainer.querySelector('.back-btn');
           const sellEntity = svg.dataset.sellEntityName;
+          const navigationContainer = svgContainer.querySelector('.navigation-container');
 
           if (entityName === 'flat') {
             svgContainer.style.paddingBottom = '80px';
@@ -137,6 +138,41 @@
               }
       
               Drupal.ajax({url: url}).execute();
+            });
+          }
+
+          /* Navigation handler */
+          if (navigationContainer) {
+            const selects = navigationContainer.querySelectorAll('select');
+
+            selects.forEach(function(element) {
+              element.addEventListener('change', function(event) {
+                const svg = svgContainer.querySelector('svg');
+                const frontUrl = svgContainer.dataset.frontUrl;
+                const blockId = svgContainer.dataset.blockId;
+                const entityName = event.target.classList[0];
+                const entityId = this.value;
+                const pathFill = svg.dataset.pathFill;
+                const pathTargetOpacity = svg.dataset.pathTargetOpacity;
+                const startingEntityName = svg.dataset.startingEntityName;
+                const sellEntityName = svg.dataset.sellEntityName;
+                const webformId = svg.dataset.webformId;
+                const imageStyle = svg.dataset.imageStyle;
+
+                let url = '/';
+
+                if (frontUrl !== '') {
+                  url = `${frontUrl}`;
+                }
+
+                url += `developer-visualization/change/${blockId}/${entityName}/${entityId}/${pathFill}/${pathTargetOpacity}/${startingEntityName}/${sellEntityName}/${webformId}`;
+      
+                if (imageStyle) {
+                  url += `/${imageStyle}`;
+                }
+
+                Drupal.ajax({url: url}).execute();
+              });
             });
           }
         }

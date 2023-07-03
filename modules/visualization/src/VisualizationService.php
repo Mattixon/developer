@@ -340,7 +340,7 @@ class VisualizationService implements VisualizationServiceInterface {
   /**
    * {@inheritdoc}
    */
-  public function getNavigationOptions(EntityInterface $developer_entity, string $starting_entity_name): array {
+  public function getNavigationOptions(EntityInterface $developer_entity, string $starting_entity_name, string $sell_entity_name): array {
     $navigation_options = [
       'buildings' => [],
       'default_building' => NULL,
@@ -357,10 +357,15 @@ class VisualizationService implements VisualizationServiceInterface {
 
       /* Set building options */
       $building_storage = $this->entityTypeManager->getStorage('developer_building');
-      $related_buildings_ids = $building_storage
+      $related_buildings_query = $building_storage
         ->getQuery()
-        ->condition('estate_id', $developer_entity->id())
-        ->execute();
+        ->condition('estate_id', $developer_entity->id());
+
+      if ($sell_entity_name === 'building') {
+        $related_buildings_query->condition('status', 3, 'NOT IN');
+      }
+
+      $related_buildings_ids = $related_buildings_query->execute();
       $related_buildings = $building_storage->loadMultiple($related_buildings_ids);
 
       $navigation_options['buildings']['null'] = '-';
@@ -555,7 +560,7 @@ class VisualizationService implements VisualizationServiceInterface {
     $is_use_navigation = $this->configFactory->get('block.block.' . $block_id)->get('settings.visualization.settings.use_navigation');
 
     if ($is_use_navigation) {
-      $navigation_options = $this->getNavigationOptions($this->getDeveloperEntity($entity_name, $entity_id), $starting_entity_name);
+      $navigation_options = $this->getNavigationOptions($this->getDeveloperEntity($entity_name, $entity_id), $starting_entity_name, $sell_entity_name);
       $selects_count = 0;
       $navigation = [
         '#type' => 'container',
@@ -568,6 +573,7 @@ class VisualizationService implements VisualizationServiceInterface {
           '#title' => $this->t('Building'),
           '#options' => $navigation_options['buildings'],
           '#value' => $navigation_options['default_building'],
+          '#attributes' => ['class' => ['building']],
         ];
         $selects_count++;
       }
@@ -577,6 +583,7 @@ class VisualizationService implements VisualizationServiceInterface {
         '#title' => $this->t('Floor'),
         '#options' => $navigation_options['floors'],
         '#value' => $navigation_options['default_floor'],
+        '#attributes' => ['class' => ['floor']],
       ];
       $selects_count++;
 
@@ -586,6 +593,7 @@ class VisualizationService implements VisualizationServiceInterface {
           '#title' => $this->t('Flat'),
           '#options' => $navigation_options['flats'],
           '#value' => $navigation_options['default_flat'],
+          '#attributes' => ['class' => ['flat']],
         ];
         $selects_count++;
       }

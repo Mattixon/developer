@@ -127,4 +127,45 @@ class AjaxVisualizationSteps extends ControllerBase {
     return $response;
   }
 
+  /**
+   * Ajax function for visualization block activate on navigation.
+   */
+  public function changeStep(
+    string $block_id,
+    string $entity_name,
+    string $entity_id,
+    string $path_fill,
+    string $path_target_opacity,
+    string $starting_entity_name,
+    string $sell_entity_name,
+    string $webform_id,
+    string $main_image_style = NULL
+  ): AjaxResponse {
+
+    /* Prepare block data */
+    $developer_entity = $this->visualizationService->getDeveloperEntity($entity_name, $entity_id);
+    $entity_id = (string) $developer_entity->id();
+    $main_image_data = $this->visualizationService->getEntityMainImageData($developer_entity, $main_image_style);
+    $svg_paths_data = $this->visualizationService->getRelatedEntitySvgData($developer_entity);
+
+    /* Build block */
+    $block = $this->visualizationService->buildContent(
+      $block_id,
+      $entity_name,
+      $entity_id,
+      $main_image_data,
+      $svg_paths_data,
+      $path_fill,
+      $path_target_opacity,
+      $starting_entity_name,
+      $sell_entity_name,
+      $webform_id
+    );
+
+    $response = new AjaxResponse();
+    $response->addCommand(new ReplaceCommand('#visualization-svg-container--' . $block_id, $block));
+
+    return $response;
+  }
+
 }

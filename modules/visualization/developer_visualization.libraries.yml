@@ -3,8 +3,7 @@ global:
     theme:
       css/developer-visualization.css: {}
   js:
-    js/developer-visualization-content.js: {}
-    js/developer-visualization-navigation.js: {}
+    js/developer-visualization.js: {}
   dependencies:
     - core/drupal.ajax
 
