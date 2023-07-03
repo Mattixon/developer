@@ -8,26 +8,26 @@
 /**
  * Implements hook_install().
  *
- * Create and add coordinates field to developer entities.
+ * Create and add coordinates and main image fields to developer entities.
  */
 function developer_visualization_install(): void {
-  $moduleHandler = \Drupal::service('module_handler');
   $coordinates_field_service = \Drupal::service('developer_visualization.coordinates_field_service');
   $coordinates_field_service->createCoordinatesField();
 
-  if ($moduleHandler->moduleExists('developer_demo')) {
-    $creator_service = \Drupal::service('developer_demo.create_data');
-    $creator_service->setCoordinates();
-  }
+  $main_image_field_service = \Drupal::service('developer_visualization.main_image_field_service');
+  $main_image_field_service->createMainImageField();
 }
 
 /**
  * Implements hook_uninstall().
  *
- * Delete coordinates field from developer entities.
+ * Delete coordinates and main image fields from developer entities.
  */
 function developer_visualization_uninstall(): void {
   /* Delete coordinates field from developer entities. */
   $coordinates_field_service = \Drupal::service('developer_visualization.coordinates_field_service');
   $coordinates_field_service->deleteCoordinatesField();
+
+  $main_image_field_service = \Drupal::service('developer_visualization.main_image_field_service');
+  $main_image_field_service->deleteMainImageField();
 }

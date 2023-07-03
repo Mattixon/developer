@@ -45,34 +45,39 @@ interface VisualizationServiceInterface {
   public function getTargetOpacity(int $target_opacity): string;
 
   /**
-   * Get related flats of given floor.
+   * Get related entities.
    */
-  public function getRelatedFloorFlats(EntityInterface $floor_entity): array;
+  public function getRelatedEntities(EntityInterface $developer_entity, string $related_entity_type): array;
 
   /**
-   * Returns Floor Entity legend.
+   * Returns Entity legend.
    */
-  public function getFloorLegend(array $related_floor_flats): array;
+  public function getLegend(array $related_entities): array;
 
   /**
    * Convert normal svg path data by adding flat status.
    */
-  public function convertToFloorRelatedSvgPaths(array $svg_paths_data): array;
+  public function convertToSvgPathsWithStatus(array $svg_paths_data, string $related_entity_type): array;
 
   /**
-   * Get Floor related flats tooltip data.
+   * Get related entities tooltip data.
    */
-  public function getRelatedFlatsTooltipData(EntityInterface $floor_entity): array;
+  public function getRelatedEntitiesTooltipData(EntityInterface $developer_entity, string $related_entity_type): array;
 
   /**
-   * Get Flat description.
+   * Get Entity description.
    */
-  public function getFlatDescription(EntityInterface $flat_entity): array;
+  public function getEntityDescription(EntityInterface $developer_entity): array;
 
   /**
    * Get block webform.
    */
   public function getWebformView(string $webform_id): array;
+
+  /**
+   * Get navigation options.
+   */
+  public function getNavigationOptions(EntityInterface $developer_entity, string $starting_entity_name): array;
 
   /**
    * Build block content.

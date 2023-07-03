@@ -7,4 +7,6 @@ package: Developer
 dependencies:
   - developer:developer
   - developer:developer_presentation
-  - webform:webform
+  - drupal:webform
+  - drupal:media
+

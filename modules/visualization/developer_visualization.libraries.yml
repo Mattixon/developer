@@ -1,8 +1,13 @@
 global:
   css:
     theme:
-      css/developer_visualization.css: {}
+      css/developer-visualization.css: {}
   js:
-    js/developer_visualization.js: {}
+    js/developer-visualization-content.js: {}
+    js/developer-visualization-navigation.js: {}
   dependencies:
     - core/drupal.ajax
+
+visualization_config_form:
+  js:
+    js/visualization-config-form.js: {}

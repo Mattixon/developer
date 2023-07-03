@@ -6,9 +6,9 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
-use Drupal\developer_visualization\VisualizationService;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\developer_presentation\Plugin\Developer\PresentationBase;
+use Drupal\developer_visualization\VisualizationServiceInterface;
 
 /**
  * Provides the visualization presentation on images.
@@ -37,7 +37,7 @@ class VisualizationPresentation extends PresentationBase implements ContainerFac
     string $plugin_id,
     array $plugin_definition,
     protected EntityTypeManagerInterface $entityTypeManager,
-    protected VisualizationService $visualizationService,
+    protected VisualizationServiceInterface $visualizationService,
   ) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
   }
@@ -78,11 +78,12 @@ class VisualizationPresentation extends PresentationBase implements ContainerFac
       $default_image_style = $this->entityTypeManager->getStorage('image_style')->load($this->configuration['main_image_style']);
     }
 
+    $form['#attached']['library'][] = 'developer_visualization/visualization_config_form';
     $form['start_from_building'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Start display from building'),
       '#default_value' => $this->configuration['start_from_building'] ?? 0,
-      '#attributes' => ['id' => 'start-from-building'],
+      '#attributes' => ['id' => 'edit-settings-visualization-settings-content-start-from-building'],
     ];
     $form['starting_estate'] = [
       '#type' => 'developer_entity_autocomplete',
@@ -93,7 +94,7 @@ class VisualizationPresentation extends PresentationBase implements ContainerFac
       '#description' => $this->t('Choose starting display estate.'),
       '#states' => [
         'visible' => [
-          ':input[id="start-from-building"]' => ['checked' => FALSE],
+          ':input[id="edit-settings-visualization-settings-content-start-from-building"]' => ['checked' => FALSE],
         ],
       ],
     ];
@@ -106,7 +107,7 @@ class VisualizationPresentation extends PresentationBase implements ContainerFac
       '#description' => $this->t('Choose starting display building.'),
       '#states' => [
         'visible' => [
-          ':input[id="start-from-building"]' => ['checked' => TRUE],
+          ':input[id="edit-settings-visualization-settings-content-start-from-building"]' => ['checked' => TRUE],
         ],
       ],
     ];
@@ -115,6 +116,12 @@ class VisualizationPresentation extends PresentationBase implements ContainerFac
       '#title' => $this->t('Sell buildings'),
       '#default_value' => $this->configuration['sell_buildings'] ?? 0,
       '#description' => $this->t('If disable, flats are sold.'),
+    ];
+    $form['use_navigation'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Use navigation'),
+      '#default_value' => $this->configuration['use_navigation'] ?? 1,
+      '#description' => $this->t('If checked, navigation will be use.'),
     ];
     $form['webform'] = [
       '#type' => 'entity_autocomplete',
@@ -160,29 +167,27 @@ class VisualizationPresentation extends PresentationBase implements ContainerFac
    * {@inheritdoc}
    */
   public function validateConfigurationForm(array &$form, FormStateInterface $form_state): void {
-    $parents = $form['#parents'];
-    array_shift($parents);
     /** @var array */
-    $values = $form_state->getValue($parents);
+    $values = $form_state->getValues();
 
     /* Empty estate entity error */
     if ($values['start_from_building'] === 0 && empty($values['starting_estate'])) {
-      $form_state->setErrorByName('visualization][settings][content][starting_estate', $this->t('This field is required.'));
+      $form_state->setErrorByName('starting_estate', $this->t('This field is required.'));
     }
 
     /* Empty building entity error */
     if ($values['start_from_building'] === 1 && empty($values['starting_building'])) {
-      $form_state->setErrorByName('visualization][settings][content][starting_building', $this->t('This field is required.'));
+      $form_state->setErrorByName('starting_building', $this->t('This field is required.'));
     }
 
     /* Fill color validation */
     if (!empty($values['fill']) && !preg_match('/^([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/', $values['fill'])) {
-      $form_state->setErrorByName('visualization][settings][content][fill', $this->t('Field must contain hex format color without "#" prefix.'));
+      $form_state->setErrorByName('fill', $this->t('Field must contain hex format color without "#" prefix.'));
     }
 
     /* Target opacity validation */
     if (!empty($values['target_opacity']) && !preg_match('/^[0-9]$|^[1-9][0-9]$|^(100)$/', $values['target_opacity'])) {
-      $form_state->setErrorByName('visualization][settings][content][target_opacity', $this->t('Field must contain number from 0 to 100.'));
+      $form_state->setErrorByName('target_opacity', $this->t('Field must contain number from 0 to 100.'));
     }
 
   }
@@ -191,11 +196,7 @@ class VisualizationPresentation extends PresentationBase implements ContainerFac
    * {@inheritdoc}
    */
   public function submitConfigurationForm(array &$form, FormStateInterface $form_state): void {
-    $parents = $form['#parents'];
-    array_shift($parents);
-    /** @var array */
-    $values = $form_state->getValue($parents);
-    $this->configuration = $values;
+    $this->configuration = $form_state->getValues();
   }
 
   /**
@@ -253,6 +254,14 @@ class VisualizationPresentation extends PresentationBase implements ContainerFac
       $configuration['sell_buildings'] ? "building" : "flat",
       $configuration['webform'],
     );
+
+    $block['#cache'] = [
+      // 'tags' => [
+      //   'developer_building_list',
+      //   'developer_floor_list',
+      // ],
+      'max-age' => -1,
+    ];
 
     return $block;
   }

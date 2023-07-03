@@ -5,6 +5,6 @@ presentation:
   js:
     js/presentation-block.js: {}
 
-presentation-config-form-validation:
+presentation_config_form:
   js:
-    js/presentation-config-form-validation.js: {}
+    js/presentation-config-form.js: {}

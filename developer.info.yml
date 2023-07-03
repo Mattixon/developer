@@ -6,8 +6,7 @@ package: Developer
 configure: developer.admin
 
 dependencies:
-  - drupal:media
-  - entity:entity
+  - drupal:entity
 
 project: developer
 'interface translation project': developer

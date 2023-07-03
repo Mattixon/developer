@@ -13,12 +13,15 @@
 function developer_demo_install(): void {
   $moduleHandler = \Drupal::service('module_handler');
   $creator_service = \Drupal::service('developer_demo.create_data');
-  $creator_service->initCreator();
+  $creator_service->initBaseCreator();
 
+  /* If module exists, force to build fields to new demo bundle. */
   if ($moduleHandler->moduleExists('developer_visualization')) {
-    $coodinates_field_service = \Drupal::service('developer_visualization.coordinates_field_service');
-    $coodinates_field_service->createCoordinatesField();
-    $creator_service->setCoordinates();
+    $coordinates_field_service = \Drupal::service('developer_visualization.main_image_field_service');
+    $coordinates_field_service->createMainImageField();
+    $coordinates_field_service = \Drupal::service('developer_visualization.coordinates_field_service');
+    $coordinates_field_service->createCoordinatesField();
+    $creator_service->initVisualizationCreator();
   }
 }
 
@@ -79,17 +82,5 @@ function developer_demo_uninstall(): void {
   }
 
   /* Remove all demo media */
-  $result = \Drupal::entityQuery('media')
-    ->condition('bundle', [
-      'developer_estate',
-      'developer_building',
-      'developer_floor',
-      'developer_flat',
-    ], 'IN')
-    ->condition('name', 'demo', 'STARTS_WITH')
-    ->execute();
-
-  $storage_handler = \Drupal::entityTypeManager()->getStorage('media');
-  $media = $storage_handler->loadMultiple($result);
-  $storage_handler->delete($media);
+  \Drupal::service('developer_demo.create_data')->removeAllDemoMedia();
 }
